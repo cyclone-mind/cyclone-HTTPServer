@@ -1,0 +1,103 @@
+
+#pragma once
+#include <muduo/base/Logging.h>
+#include <muduo/net/EventLoop.h>
+#include <muduo/net/InetAddress.h>
+#include <muduo/net/TcpServer.h>
+
+#include <utility>
+
+#include "HttpContext.hpp"
+#include "HttpRequest.hpp"
+#include "HttpResponse.hpp"
+#include "HttpTypes.hpp"
+#include "MiddlewareChain.hpp"
+#include "Router.hpp"
+#include "RouterHandler.hpp"
+
+namespace http {
+class HttpServer : public muduo::noncopyable {
+public:
+    using HttpCallback = std::function<void(const HttpRequest&, HttpResponse*)>;
+
+private:
+    muduo::net::InetAddress listenAddr_;
+    muduo::net::TcpServer server_;
+    muduo::net::EventLoop mainLoop_;
+    HttpCallback httpCallback_;
+    bool useSSL_;
+    std::string staticRoot_;                       // 静态文件根目录
+    router::Router router_;                        // 路由
+    middleware::MiddlewareChain middlewareChain_;  // 中间件链
+
+public:
+    HttpServer(int port, const std::string& name, bool useSSL = false,
+               muduo::net::TcpServer::Option option = muduo::net::TcpServer::kNoReusePort)
+        : listenAddr_(port),
+          server_(&mainLoop_, listenAddr_, name, option),
+          useSSL_(useSSL),
+          httpCallback_(std::bind(&HttpServer::HttpHandleRequest, this, std::placeholders::_1,
+                                  std::placeholders::_2)) {
+        initialize();
+    }
+    // 服务器运行函数
+    auto start() -> void {
+        LOG_WARN << "HttpServer[" << server_.name() << "] starts listening on" << server_.ipPort();
+        server_.start();
+        mainLoop_.loop();
+    }
+    auto setThreadNums(int numThreads) -> void {
+        server_.setThreadNum(numThreads);
+    }
+
+    // 设置静态文件根目录
+    auto setStaticRoot(const std::string& rootPath) -> void {
+        staticRoot_ = rootPath;
+    }
+    // 提供给用户的静态路由注册接口-回调函数形式
+    auto Get(const std::string& path, const HttpCallback& cb) -> void {
+        router_.registerCallback(HttpMethod::CGet, path, cb);
+    }
+    // 提供给用户的静态路由注册接口-HandlerPtr形式
+    auto Get(const std::string& path, router::Router::HandlerPtr handler) -> void {
+        router_.registerHandler(HttpMethod::CGet, path, std::move(handler));
+    }
+    auto Post(const std::string& path, const HttpCallback& cb) -> void {
+        router_.registerCallback(HttpMethod::CPost, path, cb);
+    }
+    auto Post(const std::string& path, router::Router::HandlerPtr handler) -> void {
+        router_.registerHandler(HttpMethod::CPost, path, std::move(handler));
+    }
+
+    // 提供给用户的动态路由注册接口
+    // 注册动态路由处理器
+    void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler)
+    {
+        router_.addRegexHandler(method, path, std::move(handler));
+    }
+
+    // 注册动态路由处理函数
+    void addRoute(HttpMethod method, const std::string& path, const router::Router::HandlerCallback& callback)
+    {
+        router_.addRegexCallback(method, path, callback);
+    }
+
+    // 作为第三方模块，用户需要拥有添加中间件的接口
+    auto addMiddleware(std::shared_ptr<middleware::Middleware> middleware)->void {
+        middlewareChain_.addMiddleware(std::move(middleware));
+    }
+
+private:
+    // HTTP服务器核心组件初始化，设置TCP连接和消息处理回调函数
+    auto initialize() -> void;
+    // TCP连接建立时的回调处理，负责为新连接创建HTTP解析上下文
+    auto onConnection(const muduo::net::TcpConnectionPtr& conn) -> void;
+    // TCP消息到达时的回调处理，负责HTTP协议解析和请求分发
+    void onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buf,
+                   muduo::Timestamp receiveTime);
+    // 处理完整HTTP请求的业务逻辑，执行用户定义的请求处理回调
+    auto onRequest(const muduo::net::TcpConnectionPtr& conn, HttpRequest& req) -> void;
+
+    auto HttpHandleRequest(const HttpRequest& req, HttpResponse* resp) -> void;
+};
+}  // namespace http
