@@ -1,3 +1,0 @@
-/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles/simple_server.dir
-/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles/rebuild_cache.dir

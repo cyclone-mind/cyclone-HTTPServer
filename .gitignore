@@ -41,6 +41,6 @@
 *.dwo
 
 .qoder/*
-build/
+build/*
 
 

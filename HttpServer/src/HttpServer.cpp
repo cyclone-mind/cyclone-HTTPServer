@@ -14,10 +14,19 @@ auto HttpServer::initialize() -> void {
     server_.setMessageCallback(std::bind(&HttpServer::onMessage, this, std::placeholders::_1,
                                          std::placeholders::_2, std::placeholders::_3));
 }
+void HttpServer::setSslConfig(const ssl::SslConfig& config) {
+    if (useSSL_) {
+        sslCtx_ = std::make_unique<ssl::SslContext>(config);
+        if (!sslCtx_->initialize()) {
+            LOG_ERROR << "Failed to initialize SSL context";
+            abort();
+        }
+    }
+}
+
 auto HttpServer::onConnection(const muduo::net::TcpConnectionPtr& conn) -> void {
     if (conn->connected()) {
         conn->setContext(HttpContext());
-        // 访问成员变量以避免 clang-tidy 静态化警告
         (void)useSSL_;  // 防止未使用变量警告
     }
 }
@@ -49,7 +58,6 @@ auto HttpServer::onRequest(const muduo::net::TcpConnectionPtr& conn, HttpRequest
                   (req.version() == HttpVersion::HTTP_1_0 && connection != "Keep-Alive"));
     HttpResponse response(close);
 
-
     httpCallback_(req, &response);
 
     muduo::net::Buffer buf;
@@ -78,7 +86,7 @@ auto HttpServer::onRequest(const muduo::net::TcpConnectionPtr& conn, HttpRequest
 auto HttpServer::HttpHandleRequest(const HttpRequest& req, HttpResponse* resp) -> void {
     try {
         HttpRequest mutableReq = req;
-        
+
         middlewareChain_.processBefore(mutableReq);
         // 路由处理，请求进到路由系统，在里面寻找对应的路由器或处理函数。
         // 如果是路由器，需要开发者自定义handle方法，如果是处理函数，则直接调用

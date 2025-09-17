@@ -16,6 +16,9 @@
 #include "RouterHandler.hpp"
 #include "Session.hpp"
 #include "SessionManager.hpp"
+#include "SslConfig.hpp"
+#include "SslTypes.hpp"
+#include "SslContext.hpp"
 
 namespace http {
 class HttpServer : public muduo::noncopyable {
@@ -32,6 +35,7 @@ private:
     router::Router router_;                        // 路由
     middleware::MiddlewareChain middlewareChain_;  // 中间件链
     std::unique_ptr<session::SessionManager> sessionManager_;
+    std::unique_ptr<ssl::SslContext> sslCtx_;  // SSL 上下文
 
 public:
     HttpServer(int port, const std::string& name, bool useSSL = false,
@@ -75,28 +79,34 @@ public:
 
     // 提供给开发者的动态路由注册接口
     // 注册动态路由处理器
-    void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler)
-    {
+    void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler) {
         router_.addRegexHandler(method, path, std::move(handler));
     }
 
     // 注册动态路由处理函数
-    void addRoute(HttpMethod method, const std::string& path, const router::Router::HandlerCallback& callback)
-    {
+    void addRoute(HttpMethod method, const std::string& path,
+                  const router::Router::HandlerCallback& callback) {
         router_.addRegexCallback(method, path, callback);
     }
 
     // 作为第三方模块，开发者需要拥有添加中间件的接口
-    auto addMiddleware(std::shared_ptr<middleware::Middleware> middleware)->void {
+    auto addMiddleware(std::shared_ptr<middleware::Middleware> middleware) -> void {
         middlewareChain_.addMiddleware(std::move(middleware));
     }
 
-    auto setSessionManager(std::unique_ptr<session::SessionManager> sessionManager)->void{
+    auto setSessionManager(std::unique_ptr<session::SessionManager> sessionManager) -> void {
         sessionManager_ = std::move(sessionManager);
     }
-    auto getSessionManager()->session::SessionManager*{
+    auto getSessionManager() -> session::SessionManager* {
         return sessionManager_.get();
     }
+
+    // 提供给开发者启用 SSL
+    void enableSSL(bool enable) {
+        useSSL_ = enable;
+    }
+
+    void setSslConfig(const ssl::SslConfig& config);
 
 private:
     // HTTP服务器核心组件初始化，设置TCP连接和消息处理回调函数
