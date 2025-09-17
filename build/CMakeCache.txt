@@ -215,6 +215,9 @@ MUDUO_BASE_LIBRARY:FILEPATH=/usr/local/lib/libmuduo_base.a
 //Path to a library.
 MUDUO_NET_LIBRARY:FILEPATH=/usr/local/lib/libmuduo_net.a
 
+//Path to a library.
+MYSQLCPPCONN_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libmysqlcppconn.so
+
 //Value Computed by CMake
 simple_server_BINARY_DIR:STATIC=/home/ubuntu/works/cyclone-HTTPServer/build
 

@@ -97,10 +97,38 @@ CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/CorsMiddleware.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.s
 
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o: CMakeFiles/simple_server.dir/flags.make
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o: ../HttpServer/src/DbConnection.cpp
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnection.cpp
+
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnection.cpp > CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.i
+
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnection.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.s
+
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o: CMakeFiles/simple_server.dir/flags.make
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o: ../HttpServer/src/DbConnectionPool.cpp
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnectionPool.cpp
+
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnectionPool.cpp > CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.i
+
+CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/DbConnectionPool.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.s
+
 CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o: ../HttpServer/src/HttpContext.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/HttpContext.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.i: cmake_force
@@ -114,7 +142,7 @@ CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.s: cmake_force
 CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o: ../HttpServer/src/HttpRequest.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/HttpRequest.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.i: cmake_force
@@ -128,7 +156,7 @@ CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.s: cmake_force
 CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o: ../HttpServer/src/HttpResponse.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/HttpResponse.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.i: cmake_force
@@ -142,7 +170,7 @@ CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.s: cmake_force
 CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o: ../HttpServer/src/HttpServer.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/HttpServer.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.i: cmake_force
@@ -156,7 +184,7 @@ CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.s: cmake_force
 CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o: ../HttpServer/src/MiddlewareChain.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/MiddlewareChain.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.i: cmake_force
@@ -170,7 +198,7 @@ CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.s: cmake_force
 CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o: ../HttpServer/src/Router.cpp
 CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/Router.cpp
 
 CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.i: cmake_force
@@ -181,10 +209,38 @@ CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/Router.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.s
 
+CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o: CMakeFiles/simple_server.dir/flags.make
+CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o: ../HttpServer/src/Session.cpp
+CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/Session.cpp
+
+CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/Session.cpp > CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.i
+
+CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/Session.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.s
+
+CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o: CMakeFiles/simple_server.dir/flags.make
+CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o: ../HttpServer/src/SessionManager.cpp
+CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o -MF CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o.d -o CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/SessionManager.cpp
+
+CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/SessionManager.cpp > CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.i
+
+CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/HttpServer/src/SessionManager.cpp -o CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.s
+
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o: ../WebApps/SimpleServer/backend/src/MemeServer.cpp
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o -MF CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o.d -o CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/MemeServer.cpp
 
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.i: cmake_force
@@ -198,7 +254,7 @@ CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.s: 
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o: CMakeFiles/simple_server.dir/flags.make
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o: ../WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o -MF CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o.d -o CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp
 
 CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.i: cmake_force
@@ -209,37 +265,62 @@ CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHand
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp -o CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.s
 
+CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o: CMakeFiles/simple_server.dir/flags.make
+CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o: ../WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp
+CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o: CMakeFiles/simple_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o -MF CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o.d -o CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o -c /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp
+
+CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp > CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i
+
+CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp -o CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s
+
 # Object files for target simple_server
 simple_server_OBJECTS = \
 "CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/main.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.o" \
+"CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o" \
+"CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o" \
 "CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o" \
+"CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o" \
+"CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o" \
 "CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o" \
-"CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o"
+"CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o" \
+"CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o"
 
 # External object files for target simple_server
 simple_server_EXTERNAL_OBJECTS =
 
 simple_server: CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/main.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.o
+simple_server: CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o
+simple_server: CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/HttpContext.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/HttpRequest.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/HttpResponse.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/HttpServer.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/MiddlewareChain.cpp.o
 simple_server: CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.o
+simple_server: CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o
+simple_server: CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o
 simple_server: CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/MemeServer.cpp.o
 simple_server: CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.o
+simple_server: CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o
 simple_server: CMakeFiles/simple_server.dir/build.make
 simple_server: /usr/local/lib/libmuduo_net.a
 simple_server: /usr/local/lib/libmuduo_base.a
+simple_server: /usr/lib/x86_64-linux-gnu/libmysqlcppconn.so
 simple_server: CMakeFiles/simple_server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable simple_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/works/cyclone-HTTPServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable simple_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/simple_server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

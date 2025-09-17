@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:29:23
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-16 17:38:29
+ * @LastEditTime: 2025-09-16 20:07:10
  * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/src/main.cpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -15,15 +15,15 @@
 #include <string>
 
 #include "../include/MemeServer.hpp"
-#define DEFALULT_PORT 8080
 
 int main(int argc, char* argv[]) {
- 
+    constexpr int DEFALULT_PORT = 8080;
+    constexpr int TIME_ZONE_MOVE = 8 * 3600;
     // 设置日志系统的时区为中国标准时间（UTC+8）
     // 参数说明：
     // 8 * 3600: 时区偏移量，8小时 * 3600秒/小时 = 28800秒，表示UTC+8时区
     // "CST": 时区名称，China Standard Time（中国标准时间）
-    muduo::Logger::setTimeZone(muduo::TimeZone(8 * 3600, "CST"));
+    muduo::Logger::setTimeZone(muduo::TimeZone(TIME_ZONE_MOVE, "CST"));
     LOG_INFO << "pid = " << getpid();
 
     std::string serverName = "MemeServer";

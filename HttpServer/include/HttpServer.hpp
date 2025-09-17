@@ -14,6 +14,8 @@
 #include "MiddlewareChain.hpp"
 #include "Router.hpp"
 #include "RouterHandler.hpp"
+#include "Session.hpp"
+#include "SessionManager.hpp"
 
 namespace http {
 class HttpServer : public muduo::noncopyable {
@@ -29,6 +31,7 @@ private:
     std::string staticRoot_;                       // 静态文件根目录
     router::Router router_;                        // 路由
     middleware::MiddlewareChain middlewareChain_;  // 中间件链
+    std::unique_ptr<session::SessionManager> sessionManager_;
 
 public:
     HttpServer(int port, const std::string& name, bool useSSL = false,
@@ -46,6 +49,7 @@ public:
         server_.start();
         mainLoop_.loop();
     }
+    // 提供给开发者，便于设置 muduo 线程数
     auto setThreadNums(int numThreads) -> void {
         server_.setThreadNum(numThreads);
     }
@@ -54,11 +58,11 @@ public:
     auto setStaticRoot(const std::string& rootPath) -> void {
         staticRoot_ = rootPath;
     }
-    // 提供给用户的静态路由注册接口-回调函数形式
+    // 提供给开发者的静态路由注册接口-回调函数形式
     auto Get(const std::string& path, const HttpCallback& cb) -> void {
         router_.registerCallback(HttpMethod::CGet, path, cb);
     }
-    // 提供给用户的静态路由注册接口-HandlerPtr形式
+    // 提供给开发者的静态路由注册接口-HandlerPtr形式
     auto Get(const std::string& path, router::Router::HandlerPtr handler) -> void {
         router_.registerHandler(HttpMethod::CGet, path, std::move(handler));
     }
@@ -69,7 +73,7 @@ public:
         router_.registerHandler(HttpMethod::CPost, path, std::move(handler));
     }
 
-    // 提供给用户的动态路由注册接口
+    // 提供给开发者的动态路由注册接口
     // 注册动态路由处理器
     void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler)
     {
@@ -82,9 +86,16 @@ public:
         router_.addRegexCallback(method, path, callback);
     }
 
-    // 作为第三方模块，用户需要拥有添加中间件的接口
+    // 作为第三方模块，开发者需要拥有添加中间件的接口
     auto addMiddleware(std::shared_ptr<middleware::Middleware> middleware)->void {
         middlewareChain_.addMiddleware(std::move(middleware));
+    }
+
+    auto setSessionManager(std::unique_ptr<session::SessionManager> sessionManager)->void{
+        sessionManager_ = std::move(sessionManager);
+    }
+    auto getSessionManager()->session::SessionManager*{
+        return sessionManager_.get();
     }
 
 private:

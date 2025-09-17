@@ -2,19 +2,25 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:26:05
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-16 17:38:07
+ * @LastEditTime: 2025-09-17 14:18:40
  * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/include/MemeServer.hpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
  */
 #pragma once
-#include "../../../../HttpServer/include/HttpServer.hpp"
-#include "../include/handlers/EntryHandler.hpp"
+#include <memory>
+
 #include "../../../../HttpServer/include/CorsMiddleware.hpp"
+#include "../../../../HttpServer/include/HttpServer.hpp"
+#include "../../../../HttpServer/include/MysqlUtil.hpp"
+#include "../../../../HttpServer/include/SessionManager.hpp"
+
+class EntryHandler;
 
 class MemeServer {
 private:
     http::HttpServer httpServer_;
+    http::MysqlUtil mysqlUtil_;
 
 public:
     MemeServer(int port, const std::string& name,
@@ -28,10 +34,19 @@ public:
     auto start() -> void {
         httpServer_.start();
     }
+    auto getSessionManager() -> http::session::SessionManager* {
+        return httpServer_.getSessionManager();
+    }
 
 private:
     auto initialize() -> void {
+        // 初始化数据库连接池
+        http::MysqlUtil::init("tcp://127.0.0.1:3306", "root", "root123", "Meme", 10);
+        // 初始化会话
+        initializeSession();
+        // 初始化中间件
         initializeMiddleware();
+        // 初始化路由
         initializeRouter();
     }
     auto initializeMiddleware() -> void {
@@ -40,8 +55,14 @@ private:
         // 添加中间件
         httpServer_.addMiddleware(corsMiddleware);
     }
-    auto initializeRouter() -> void {
-        httpServer_.Get("/", std::make_shared<EntryHandler>(this));
-        httpServer_.Get("/entry", std::make_shared<EntryHandler>(this));
-    };
+    auto initializeRouter() -> void;
+    auto initializeSession() -> void {
+        auto sessionStorage = std::make_unique<http::session::MemorySessionStorage>();
+        auto sessionManager =
+            std::make_unique<http::session::SessionManager>(std::move(sessionStorage));
+        setSessionManager(std::move(sessionManager));
+    }
+    void setSessionManager(std::unique_ptr<http::session::SessionManager> manager) {
+        httpServer_.setSessionManager(std::move(manager));
+    }
 };

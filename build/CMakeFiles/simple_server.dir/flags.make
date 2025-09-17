@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/works/cyclone-HTTPServer/HttpServer/include -I/home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/include
+CXX_INCLUDES = -I/home/ubuntu/works/cyclone-HTTPServer/HttpServer/include -I/home/ubuntu/works/cyclone-HTTPServer/WebApps/SimpleServer/backend/include -I/usr/include/mysql-cppconn-8 -I/usr/include/mysql
 
 CXX_FLAGS = -std=gnu++17
 

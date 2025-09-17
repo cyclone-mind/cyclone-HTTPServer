@@ -153,6 +153,54 @@ HttpServer/src/CorsMiddleware.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/CorsMiddleware.cpp.s
 .PHONY : HttpServer/src/CorsMiddleware.cpp.s
 
+HttpServer/src/DbConnection.o: HttpServer/src/DbConnection.cpp.o
+.PHONY : HttpServer/src/DbConnection.o
+
+# target to build an object file
+HttpServer/src/DbConnection.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.o
+.PHONY : HttpServer/src/DbConnection.cpp.o
+
+HttpServer/src/DbConnection.i: HttpServer/src/DbConnection.cpp.i
+.PHONY : HttpServer/src/DbConnection.i
+
+# target to preprocess a source file
+HttpServer/src/DbConnection.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.i
+.PHONY : HttpServer/src/DbConnection.cpp.i
+
+HttpServer/src/DbConnection.s: HttpServer/src/DbConnection.cpp.s
+.PHONY : HttpServer/src/DbConnection.s
+
+# target to generate assembly for a file
+HttpServer/src/DbConnection.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnection.cpp.s
+.PHONY : HttpServer/src/DbConnection.cpp.s
+
+HttpServer/src/DbConnectionPool.o: HttpServer/src/DbConnectionPool.cpp.o
+.PHONY : HttpServer/src/DbConnectionPool.o
+
+# target to build an object file
+HttpServer/src/DbConnectionPool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.o
+.PHONY : HttpServer/src/DbConnectionPool.cpp.o
+
+HttpServer/src/DbConnectionPool.i: HttpServer/src/DbConnectionPool.cpp.i
+.PHONY : HttpServer/src/DbConnectionPool.i
+
+# target to preprocess a source file
+HttpServer/src/DbConnectionPool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.i
+.PHONY : HttpServer/src/DbConnectionPool.cpp.i
+
+HttpServer/src/DbConnectionPool.s: HttpServer/src/DbConnectionPool.cpp.s
+.PHONY : HttpServer/src/DbConnectionPool.s
+
+# target to generate assembly for a file
+HttpServer/src/DbConnectionPool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/DbConnectionPool.cpp.s
+.PHONY : HttpServer/src/DbConnectionPool.cpp.s
+
 HttpServer/src/HttpContext.o: HttpServer/src/HttpContext.cpp.o
 .PHONY : HttpServer/src/HttpContext.o
 
@@ -297,6 +345,54 @@ HttpServer/src/Router.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/Router.cpp.s
 .PHONY : HttpServer/src/Router.cpp.s
 
+HttpServer/src/Session.o: HttpServer/src/Session.cpp.o
+.PHONY : HttpServer/src/Session.o
+
+# target to build an object file
+HttpServer/src/Session.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.o
+.PHONY : HttpServer/src/Session.cpp.o
+
+HttpServer/src/Session.i: HttpServer/src/Session.cpp.i
+.PHONY : HttpServer/src/Session.i
+
+# target to preprocess a source file
+HttpServer/src/Session.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.i
+.PHONY : HttpServer/src/Session.cpp.i
+
+HttpServer/src/Session.s: HttpServer/src/Session.cpp.s
+.PHONY : HttpServer/src/Session.s
+
+# target to generate assembly for a file
+HttpServer/src/Session.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/Session.cpp.s
+.PHONY : HttpServer/src/Session.cpp.s
+
+HttpServer/src/SessionManager.o: HttpServer/src/SessionManager.cpp.o
+.PHONY : HttpServer/src/SessionManager.o
+
+# target to build an object file
+HttpServer/src/SessionManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.o
+.PHONY : HttpServer/src/SessionManager.cpp.o
+
+HttpServer/src/SessionManager.i: HttpServer/src/SessionManager.cpp.i
+.PHONY : HttpServer/src/SessionManager.i
+
+# target to preprocess a source file
+HttpServer/src/SessionManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.i
+.PHONY : HttpServer/src/SessionManager.cpp.i
+
+HttpServer/src/SessionManager.s: HttpServer/src/SessionManager.cpp.s
+.PHONY : HttpServer/src/SessionManager.s
+
+# target to generate assembly for a file
+HttpServer/src/SessionManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/HttpServer/src/SessionManager.cpp.s
+.PHONY : HttpServer/src/SessionManager.cpp.s
+
 WebApps/SimpleServer/backend/src/MemeServer.o: WebApps/SimpleServer/backend/src/MemeServer.cpp.o
 .PHONY : WebApps/SimpleServer/backend/src/MemeServer.o
 
@@ -345,6 +441,30 @@ WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.s
 .PHONY : WebApps/SimpleServer/backend/src/handlers/EntryHandler.cpp.s
 
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.o: WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.o
+
+# target to build an object file
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.o
+
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.i: WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.i
+
+# target to preprocess a source file
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.i
+
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.s: WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.s
+
+# target to generate assembly for a file
+WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_server.dir/build.make CMakeFiles/simple_server.dir/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s
+.PHONY : WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp.s
+
 WebApps/SimpleServer/backend/src/main.o: WebApps/SimpleServer/backend/src/main.cpp.o
 .PHONY : WebApps/SimpleServer/backend/src/main.o
 
@@ -381,6 +501,12 @@ help:
 	@echo "... HttpServer/src/CorsMiddleware.o"
 	@echo "... HttpServer/src/CorsMiddleware.i"
 	@echo "... HttpServer/src/CorsMiddleware.s"
+	@echo "... HttpServer/src/DbConnection.o"
+	@echo "... HttpServer/src/DbConnection.i"
+	@echo "... HttpServer/src/DbConnection.s"
+	@echo "... HttpServer/src/DbConnectionPool.o"
+	@echo "... HttpServer/src/DbConnectionPool.i"
+	@echo "... HttpServer/src/DbConnectionPool.s"
 	@echo "... HttpServer/src/HttpContext.o"
 	@echo "... HttpServer/src/HttpContext.i"
 	@echo "... HttpServer/src/HttpContext.s"
@@ -399,12 +525,21 @@ help:
 	@echo "... HttpServer/src/Router.o"
 	@echo "... HttpServer/src/Router.i"
 	@echo "... HttpServer/src/Router.s"
+	@echo "... HttpServer/src/Session.o"
+	@echo "... HttpServer/src/Session.i"
+	@echo "... HttpServer/src/Session.s"
+	@echo "... HttpServer/src/SessionManager.o"
+	@echo "... HttpServer/src/SessionManager.i"
+	@echo "... HttpServer/src/SessionManager.s"
 	@echo "... WebApps/SimpleServer/backend/src/MemeServer.o"
 	@echo "... WebApps/SimpleServer/backend/src/MemeServer.i"
 	@echo "... WebApps/SimpleServer/backend/src/MemeServer.s"
 	@echo "... WebApps/SimpleServer/backend/src/handlers/EntryHandler.o"
 	@echo "... WebApps/SimpleServer/backend/src/handlers/EntryHandler.i"
 	@echo "... WebApps/SimpleServer/backend/src/handlers/EntryHandler.s"
+	@echo "... WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.o"
+	@echo "... WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.i"
+	@echo "... WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.s"
 	@echo "... WebApps/SimpleServer/backend/src/main.o"
 	@echo "... WebApps/SimpleServer/backend/src/main.i"
 	@echo "... WebApps/SimpleServer/backend/src/main.s"
