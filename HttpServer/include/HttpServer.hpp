@@ -68,15 +68,31 @@ public:
     auto Get(const std::string& path, const HttpCallback& cb) -> void {
         router_.registerCallback(HttpMethod::CGet, path, cb);
     }
+    // 提供给开发者的静态路由注册接口-回调函数形式（支持缓存）
+    auto Get(const std::string& path, const HttpCallback& cb, const router::Router::CacheConfig& cacheConfig) -> void {
+        router_.registerCallback(HttpMethod::CGet, path, cb, cacheConfig);
+    }
     // 提供给开发者的静态路由注册接口-HandlerPtr形式
     auto Get(const std::string& path, router::Router::HandlerPtr handler) -> void {
         router_.registerHandler(HttpMethod::CGet, path, std::move(handler));
     }
+    // 提供给开发者的静态路由注册接口-HandlerPtr形式（支持缓存）
+    auto Get(const std::string& path, router::Router::HandlerPtr handler, const router::Router::CacheConfig& cacheConfig) -> void {
+        router_.registerHandler(HttpMethod::CGet, path, std::move(handler), cacheConfig);
+    }
     auto Post(const std::string& path, const HttpCallback& cb) -> void {
         router_.registerCallback(HttpMethod::CPost, path, cb);
     }
+    // 提供给开发者的静态路由注册接口-回调函数形式（支持缓存）
+    auto Post(const std::string& path, const HttpCallback& cb, const router::Router::CacheConfig& cacheConfig) -> void {
+        router_.registerCallback(HttpMethod::CPost, path, cb, cacheConfig);
+    }
     auto Post(const std::string& path, router::Router::HandlerPtr handler) -> void {
         router_.registerHandler(HttpMethod::CPost, path, std::move(handler));
+    }
+    // 提供给开发者的静态路由注册接口-HandlerPtr形式（支持缓存）
+    auto Post(const std::string& path, router::Router::HandlerPtr handler, const router::Router::CacheConfig& cacheConfig) -> void {
+        router_.registerHandler(HttpMethod::CPost, path, std::move(handler), cacheConfig);
     }
 
     // 提供给开发者的动态路由注册接口
