@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-17 17:24:58
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-17 20:32:03
+ * @LastEditTime: 2025-09-18 20:26:12
  * @FilePath: /cyclone-HTTPServer/HttpServer/src/SslContext.cpp
  * @Description:
  * Copyright (c) 2025 by cyclone, All Rights Reserved.
@@ -94,19 +94,19 @@ auto SslContext::loadCertificates() -> bool {
 
 auto SslContext::setupProtocol() -> bool {
     // 设置 SSL/TLS 协议版本
-    long options = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
+    long options = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;  // 始终禁用不安全的 SSL 版本
     switch (config_.getProtocolVersion()) {
         case SSLVersion::TLS_1_0:
-            options |= SSL_OP_NO_TLSv1;
+            // 只允许 TLS 1.0 及以上，不需要额外禁用
             break;
         case SSLVersion::TLS_1_1:
-            options |= SSL_OP_NO_TLSv1_1;
+            options |= SSL_OP_NO_TLSv1;  // 禁用 TLS 1.0
             break;
         case SSLVersion::TLS_1_2:
-            options |= SSL_OP_NO_TLSv1_2;
+            options |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1;  // 禁用 TLS 1.0 和 1.1
             break;
         case SSLVersion::TLS_1_3:
-            options |= SSL_OP_NO_TLSv1_3;
+            options |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1 | SSL_OP_NO_TLSv1_2;  // 只允许 TLS 1.3
             break;
     }
     SSL_CTX_set_options(ctx_, options);
@@ -122,3 +122,4 @@ auto SslContext::setupProtocol() -> bool {
     return true;
 }
 }  // namespace ssl
+

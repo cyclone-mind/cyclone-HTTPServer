@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:26:05
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-17 21:48:55
+ * @LastEditTime: 2025-09-19 10:35:08
  * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/include/MemeServer.hpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -50,7 +50,7 @@ private:
         initializeMiddleware();
         // 初始化路由
         initializeRouter();
-        initializeSsl();
+        initializeSsl();  
     }
     auto initializeMiddleware() -> void {
         // 创建中间件
@@ -72,20 +72,16 @@ private:
         httpServer_.enableSSL(true);
         ssl::SslConfig sslConfig;
         const std::string certPath = "/opt/cyclone/ssl";
-        std::string certFile = certPath + "/cloudflare-origin-kktui.crt";
-        std::string keyFile = certPath + "/cloudflare-origin-kktui.key";
+        // std::string certFile = certPath + "/cloudflare-origin-kktui.crt";
+        // std::string keyFile = certPath + "/cloudflare-origin-kktui.key";
+        std::string certFile = certPath + "/kktui.dpdns.org_bundle.crt";
+        std::string keyFile = certPath + "/kktui.dpdns.org.key";
         sslConfig.setCertificateFile(certFile);
         sslConfig.setPrivateKeyFile(keyFile);
         
-        if(access(certFile.c_str(), R_OK != 0) != 0){
-            LOG_FATAL << "SSL certificate file not found: " << certFile;
-        }
-        if(access(keyFile.c_str(), R_OK != 0) != 0){
-            LOG_FATAL << "SSL key file not found: " << keyFile;
-        }
 
-        sslConfig.setProtocolVersion(ssl::SSLVersion::TLS_1_3);
-        sslConfig.setCipherList("ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS");
+        sslConfig.setProtocolVersion(ssl::SSLVersion::TLS_1_2);
+        sslConfig.setCipherList("ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA");
         
         sslConfig.setVerifyClient(false);
         sslConfig.setVerifyDepth(1);

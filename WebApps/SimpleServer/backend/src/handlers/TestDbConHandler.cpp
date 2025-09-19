@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-17 14:11:25
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-17 14:22:09
+ * @LastEditTime: 2025-09-19 11:35:00
  * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/src/handlers/TestDbConHandler.cpp
  * @Description:
  * Copyright (c) 2025 by cyclone, All Rights Reserved.
@@ -225,6 +225,7 @@ void TestDbConHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
     resp->setStatusCode(http::HttpStatusCode::C200Ok);
     resp->setStatusMessage("OK");
     resp->setContentType("text/html; charset=utf-8");
+    resp->setContentLength(html.str().size());
     resp->setBody(html.str());
     
     LOG_INFO << "数据库连接池测试请求处理完成";

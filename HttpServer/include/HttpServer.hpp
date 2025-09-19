@@ -1,6 +1,7 @@
 
 #pragma once
 #include <muduo/base/Logging.h>
+#include <muduo/net/Callbacks.h>
 #include <muduo/net/EventLoop.h>
 #include <muduo/net/InetAddress.h>
 #include <muduo/net/TcpServer.h>
@@ -19,7 +20,7 @@
 #include "SslConfig.hpp"
 #include "SslTypes.hpp"
 #include "SslContext.hpp"
-
+#include "SslConnection.hpp"
 namespace http {
 class HttpServer : public muduo::noncopyable {
 public:
@@ -36,6 +37,7 @@ private:
     middleware::MiddlewareChain middlewareChain_;  // 中间件链
     std::unique_ptr<session::SessionManager> sessionManager_;
     std::unique_ptr<ssl::SslContext> sslCtx_;  // SSL 上下文
+    std::unordered_map<muduo::net::TcpConnectionPtr,std::unique_ptr<ssl::SslConnection>> sslConns_; // SSL 连接
 
 public:
     HttpServer(int port, const std::string& name, bool useSSL = false,
