@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:26:05
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-19 10:35:08
+ * @LastEditTime: 2025-09-20 14:10:28
  * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/include/MemeServer.hpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -50,7 +50,7 @@ private:
         initializeMiddleware();
         // 初始化路由
         initializeRouter();
-        initializeSsl();  
+        // initializeSsl();  
     }
     auto initializeMiddleware() -> void {
         // 创建中间件

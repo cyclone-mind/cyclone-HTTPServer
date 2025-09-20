@@ -31,6 +31,11 @@ file(GLOB_RECURSE HTTP_SERVER_SRC
     "${PROJECT_SOURCE_DIR}/HttpServer/src/*.cpp"
 )
 
+# 4. 添加Cache模块源文件
+file(GLOB CACHE_SRC
+    "${PROJECT_SOURCE_DIR}/HttpServer/src/Cache/*.cpp"
+)
+
 file(GLOB_RECURSE SIMEPLE_SERVER_SRC
     "${PROJECT_SOURCE_DIR}/WebApps/SimpleServer/backend/src/*.cpp"
 )
@@ -38,9 +43,10 @@ file(GLOB_RECURSE SIMEPLE_SERVER_SRC
 set(MAIN_SRC "${PROJECT_SOURCE_DIR}/WebApps/SimpleServer/backend/src/main.cpp")
 
 # 5. 创建可执行文件
-add_executable(simple_server 
+add_executable(simple_server
     ${MAIN_SRC}
     ${HTTP_SERVER_SRC}
+    ${CACHE_SRC}
     ${SIMEPLE_SERVER_SRC}
 )
 

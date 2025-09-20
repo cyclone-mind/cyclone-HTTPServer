@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 10:20:55
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-19 21:38:07
+ * @LastEditTime: 2025-09-20 14:48:37
  * @FilePath: /cyclone-HTTPServer/HttpServer/src/Router.cpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -21,7 +21,7 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
     // 检查是否启用了响应缓存
     auto cacheConfigIt = routeCacheConfigs_.find(key);
     if (cacheConfigIt != routeCacheConfigs_.end() && responseCache_) {
-        CacheKey cacheKey = std::to_string(static_cast<int>(req.method())) + ":" + req.path();
+        CacheKey cacheKey = buildCacheKey(req, cacheConfigIt->second);
 
         // 尝试从缓存获取响应
         CachedResponse cachedResp;
@@ -41,7 +41,7 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
 
         // 如果启用了缓存，缓存响应
         if (cacheConfigIt != routeCacheConfigs_.end() && responseCache_) {
-            CacheKey cacheKey = std::to_string(static_cast<int>(req.method())) + ":" + req.path();
+            CacheKey cacheKey = buildCacheKey(req, cacheConfigIt->second);
             CachedResponse cachedResp(*resp, cacheConfigIt->second.ttlSeconds);
             responseCache_->put(cacheKey, cachedResp);
         }
@@ -58,7 +58,7 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
 
         // 如果启用了缓存，缓存响应
         if (cacheConfigIt != routeCacheConfigs_.end() && responseCache_) {
-            CacheKey cacheKey = std::to_string(static_cast<int>(req.method())) + ":" + req.path();
+            CacheKey cacheKey = buildCacheKey(req, cacheConfigIt->second);
             CachedResponse cachedResp(*resp, cacheConfigIt->second.ttlSeconds);
             responseCache_->put(cacheKey, cachedResp);
         }
@@ -109,30 +109,15 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
     return false;
 }
 
-// CachedResponse的实现
-Router::CachedResponse::CachedResponse(const HttpResponse& resp, int ttlSeconds)
-    : body(""),  // 暂时为空，后面需要从resp获取
-      statusCode(resp.getStatusCode()),
-      statusMessage(""),  // 暂时为空
-      expiresAt(std::chrono::steady_clock::now() + std::chrono::seconds(ttlSeconds)) {
-    // 注意：这里需要访问HttpResponse的私有成员，暂时简化实现
-}
 
-bool Router::CachedResponse::isExpired() const {
-    return std::chrono::steady_clock::now() > expiresAt;
-}
-
-void Router::CachedResponse::applyTo(HttpResponse& resp) const {
-    resp.setStatusCode(statusCode);
-    if (!statusMessage.empty()) {
-        // resp.setStatusMessage(statusMessage); // 如果HttpResponse有这个方法
-    }
-    if (!body.empty()) {
-        resp.setBody(body);
-    }
-    // 应用缓存的响应头
-    for (const auto& [key, value] : headers) {
-        resp.addHeader(key, value);
+// 实现buildCacheKey方法
+auto Router::buildCacheKey(const HttpRequest& req, const CacheConfig& config) -> std::string {
+    if (config.keyStrategy == cache::KeyGenerationStrategy::CUSTOM && config.customKeyGenerator) {
+        // 使用自定义Key生成器
+        return config.customKeyGenerator(req);
+    } else {
+        // 默认策略：method + path
+        return std::to_string(static_cast<int>(req.method())) + ":" + req.path();
     }
 }
 

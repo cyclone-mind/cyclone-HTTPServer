@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-15 14:26:04
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-16 14:21:09
+ * @LastEditTime: 2025-09-20 13:49:23
  * @FilePath: /cyclone-HTTPServer/HttpServer/include/HttpResponse.hpp
  * @Description: 
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -43,6 +43,10 @@ public:
         return statusCode_;
     }
 
+    [[nodiscard]] auto getStatusMessage() const -> const std::string& {
+        return statusMessage_;
+    }
+
     void setStatusMessage(const std::string& message) {
         statusMessage_ = message;
     }
@@ -67,13 +71,21 @@ public:
         headers_[key] = value;
     }
 
+    [[nodiscard]] auto getBody() const -> const std::string& {
+        return body_;
+    }
+
+    [[nodiscard]] auto getHeaders() const -> const std::map<std::string, std::string>& {
+        return headers_;
+    }
+
     void setBody(const std::string& body) {
         body_ = body;
         // body_ += "\0";
     }
 
     void setStatusLine(HttpVersion version, HttpStatusCode statusCode,
-                       const std::string& statusMessage) {
+                        const std::string& statusMessage) {
         httpVersion_ = version;
         statusCode_ = statusCode;
         statusMessage_ = statusMessage;

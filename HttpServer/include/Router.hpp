@@ -8,12 +8,17 @@
 #include <vector>
 #include <memory>
 #include <optional>
+#include <chrono>
 
 #include "HttpRequest.hpp"
 #include "HttpResponse.hpp"
 #include "HttpTypes.hpp"
 #include "RouterHandler.hpp"
+#include "KICachePolicy.hpp"
 #include "KLruCache.hpp"
+#include "Cache/CacheTypes.hpp"
+#include "Cache/CacheConfig.hpp"
+#include "Cache/CachedResponse.hpp"
 
 namespace http::router {
 
@@ -23,33 +28,10 @@ public:
     // 多个路由可能共享同一个 Handler
     using HandlerPtr = std::shared_ptr<RouterHandler>;
 
-    // 响应缓存配置
-    struct CacheConfig {
-        bool enabled = false;
-        int ttlSeconds = 300;  // 默认5分钟
-        int maxSize = 1000;    // 默认最大缓存1000个响应
-
-        CacheConfig() = default;
-        CacheConfig(int ttl) : enabled(true), ttlSeconds(ttl) {}
-        CacheConfig(int ttl, int size) : enabled(true), ttlSeconds(ttl), maxSize(size) {}
-    };
-
-    // 缓存的响应数据
-    struct CachedResponse {
-        std::string body;
-        HttpStatusCode statusCode;
-        std::string statusMessage;
-        std::unordered_map<std::string, std::string> headers;
-        std::chrono::steady_clock::time_point expiresAt;
-
-        CachedResponse() = default;
-        CachedResponse(const HttpResponse& resp, int ttlSeconds);
-        bool isExpired() const;
-        void applyTo(HttpResponse& resp) const;
-    };
-
-    // 缓存键类型
-    using CacheKey = std::string;
+    // 使用Cache模块的类型
+    using CacheConfig = cache::CacheConfig;
+    using CachedResponse = cache::CachedResponse;
+    using CacheKey = cache::CacheKey;
 
     struct RouterKey {
         HttpMethod method;
@@ -83,7 +65,7 @@ public:
             routeCacheConfigs_[key] = cacheConfig;
             // 初始化响应缓存（如果还没有初始化）
             if (!responseCache_) {
-                responseCache_ = std::make_unique<cache::KLruCache<CacheKey, CachedResponse>>(cacheConfig.maxSize);
+                responseCache_ = createCacheImplementation(cacheConfig);
             }
         }
     }
@@ -102,7 +84,7 @@ public:
             routeCacheConfigs_[key] = cacheConfig;
             // 初始化响应缓存（如果还没有初始化）
             if (!responseCache_) {
-                responseCache_ = std::make_unique<cache::KLruCache<CacheKey, CachedResponse>>(cacheConfig.maxSize);
+                responseCache_ = createCacheImplementation(cacheConfig);
             }
         }
     }
@@ -126,6 +108,22 @@ public:
     auto route(const HttpRequest& request, HttpResponse* response) -> bool;
 
 private:
+    // 缓存工厂方法：根据配置创建合适的缓存实现
+    auto createCacheImplementation(const CacheConfig& config)
+        -> std::unique_ptr<cache::KICachePolicy<CacheKey, CachedResponse>> {
+        // 暂时只支持LRU缓存，未来可以扩展支持其他策略
+        switch (config.strategy) {
+            case cache::CacheStrategy::LRU:
+            default:
+                // 使用LRU缓存（支持分片配置）
+                if (config.enableSharding && config.shardCount > 1) {
+                    // 暂时使用普通LRU，未来可以实现分片LRU
+                    return std::make_unique<cache::KLruCache<CacheKey, CachedResponse>>(config.maxSize);
+                } else {
+                    return std::make_unique<cache::KLruCache<CacheKey, CachedResponse>>(config.maxSize);
+                }
+        }
+    }
     auto convertToRegex(const std::string& pathPattern)
         -> std::regex {  // 将路径模式转换为正则表达式，支持匹配任意路径参数
         // 例如将 "/user/:id" 转换为 "^/user/([^/]+)$"
@@ -158,14 +156,14 @@ private:
         RouteHandlerObj(HttpMethod method, std::regex pathRegex, HandlerPtr handler)
             : method_(method), pathRegex_(std::move(pathRegex)), handler_(std::move(handler)) {}
     };
-    auto buildCacheKey(const HttpRequest& req) -> std::string;
+    auto buildCacheKey(const HttpRequest& req, const CacheConfig& config) -> std::string;
     auto isRouteCacheable(const Router& router, const HttpRequest& req) -> bool;
 
     // 缓存配置映射：路由键 -> 缓存配置
     std::unordered_map<RouterKey, CacheConfig, RouterHash> routeCacheConfigs_;
 
     // 响应缓存：缓存键 -> 缓存的响应
-    std::unique_ptr<cache::KLruCache<CacheKey, CachedResponse>> responseCache_;
+    std::unique_ptr<cache::KICachePolicy<CacheKey, CachedResponse>> responseCache_;
 
     std::unordered_map<RouterKey, HandlerCallback, RouterHash> callbacks_;
     std::unordered_map<RouterKey, HandlerPtr, RouterHash> handlers_;
