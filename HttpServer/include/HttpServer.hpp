@@ -64,6 +64,7 @@ public:
     auto setStaticRoot(const std::string& rootPath) -> void {
         staticRoot_ = rootPath;
     }
+
     // 提供给开发者的静态路由注册接口-回调函数形式
     auto Get(const std::string& path, const HttpCallback& cb) -> void {
         router_.registerCallback(HttpMethod::CGet, path, cb);
@@ -72,6 +73,7 @@ public:
     auto Get(const std::string& path, const HttpCallback& cb, const router::Router::CacheConfig& cacheConfig) -> void {
         router_.registerCallback(HttpMethod::CGet, path, cb, cacheConfig);
     }
+
     // 提供给开发者的静态路由注册接口-HandlerPtr形式
     auto Get(const std::string& path, router::Router::HandlerPtr handler) -> void {
         router_.registerHandler(HttpMethod::CGet, path, std::move(handler));
@@ -80,6 +82,7 @@ public:
     auto Get(const std::string& path, router::Router::HandlerPtr handler, const router::Router::CacheConfig& cacheConfig) -> void {
         router_.registerHandler(HttpMethod::CGet, path, std::move(handler), cacheConfig);
     }
+
     auto Post(const std::string& path, const HttpCallback& cb) -> void {
         router_.registerCallback(HttpMethod::CPost, path, cb);
     }
@@ -87,6 +90,7 @@ public:
     auto Post(const std::string& path, const HttpCallback& cb, const router::Router::CacheConfig& cacheConfig) -> void {
         router_.registerCallback(HttpMethod::CPost, path, cb, cacheConfig);
     }
+    
     auto Post(const std::string& path, router::Router::HandlerPtr handler) -> void {
         router_.registerHandler(HttpMethod::CPost, path, std::move(handler));
     }
@@ -96,15 +100,27 @@ public:
     }
 
     // 提供给开发者的动态路由注册接口
-    // 注册动态路由处理器
+    // 注册动态路由处理器（无缓存）
     void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler) {
         router_.addRegexHandler(method, path, std::move(handler));
     }
 
-    // 注册动态路由处理函数
+    // 注册动态路由处理器（支持缓存）
+    void addRoute(HttpMethod method, const std::string& path, router::Router::HandlerPtr handler,
+                  const router::Router::CacheConfig& cacheConfig) {
+        router_.addRegexHandler(method, path, std::move(handler), cacheConfig);
+    }
+
+    // 注册动态路由处理函数（无缓存）
     void addRoute(HttpMethod method, const std::string& path,
                   const router::Router::HandlerCallback& callback) {
         router_.addRegexCallback(method, path, callback);
+    }
+
+    // 注册动态路由处理函数（支持缓存）
+    void addRoute(HttpMethod method, const std::string& path,
+                  const router::Router::HandlerCallback& callback, const router::Router::CacheConfig& cacheConfig) {
+        router_.addRegexCallback(method, path, callback, cacheConfig);
     }
 
     // 作为第三方模块，开发者需要拥有添加中间件的接口

@@ -67,7 +67,7 @@ public:
     auto setPathParams(std::string key, std::string value) -> void {
         pathParams_[std::move(key)] = std::move(value);
     }
-    auto getPathParam(const std::string& key) -> std::string{
+    auto getPathParam(const std::string& key) const -> std::string{
         auto item = pathParams_.find(key);
         return (item == pathParams_.end()) ? std::string() : item->second;
     }

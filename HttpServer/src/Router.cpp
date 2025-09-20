@@ -68,12 +68,26 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
 
     // 第三步：查找动态路由回调函数
     // 遍历所有注册的正则表达式回调函数，查找匹配的动态路由
-    for (const auto& [method, pathRegex, callback] : regexCallbacks_) {
+    for (const auto& routeObj : regexCallbacks_) {
+        const auto& [method, pathRegex, callback, cacheConfig] = routeObj;
         std::smatch match;                // 存储正则表达式匹配结果
         std::string pathStr(req.path());  // 将请求路径转换为字符串
 
         // 检查HTTP方法是否匹配，并且路径是否符合正则表达式模式
         if (method == req.method() && std::regex_match(pathStr, match, pathRegex)) {
+            // 检查是否启用了响应缓存
+            if (cacheConfig.enabled && responseCache_) {
+                CacheKey cacheKey = buildCacheKey(req, cacheConfig);
+
+                // 尝试从缓存获取响应
+                CachedResponse cachedResp;
+                if (responseCache_->get(cacheKey, cachedResp) && !cachedResp.isExpired()) {
+                    // 缓存命中，直接应用缓存的响应
+                    cachedResp.applyTo(*resp);
+                    return true;
+                }
+            }
+
             // 提取路径参数并添加到请求对象中
             // 创建新的请求对象副本，用于添加动态路径参数
             HttpRequest newReq(req);  // 因为这里需要用这一次所以是可以改的
@@ -81,13 +95,22 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
 
             // 执行匹配的动态路由回调函数
             callback(newReq, resp);
+
+            // 如果启用了缓存，缓存响应
+            if (cacheConfig.enabled && responseCache_) {
+                CacheKey cacheKey = buildCacheKey(req, cacheConfig);
+                CachedResponse cachedResp(*resp, cacheConfig.ttlSeconds);
+                responseCache_->put(cacheKey, cachedResp);
+            }
+
             return true;
         }
     }
 
     // 第四步：查找动态路由处理器
     // 遍历所有注册的正则表达式处理器，查找匹配的动态路由
-    for (const auto& [method, pathRegex, handler] : regexHandlers_) {
+    for (const auto& routeObj : regexHandlers_) {
+        const auto& [method, pathRegex, handler, cacheConfig] = routeObj;
         std::smatch match;                // 存储正则表达式匹配的结果，初始为空
         std::string pathStr(req.path());  // 将请求路径转换为字符串进行匹配
 
@@ -96,6 +119,19 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
         // 匹配成功时，match对象包含：match[0] = "/user/123" (完整匹配) match[1] = "123"
         // (第一个捕获组，即用户ID)
         if (method == req.method() && std::regex_match(pathStr, match, pathRegex)) {
+            // 检查是否启用了响应缓存
+            if (cacheConfig.enabled && responseCache_) {
+                CacheKey cacheKey = buildCacheKey(req, cacheConfig);
+
+                // 尝试从缓存获取响应
+                CachedResponse cachedResp;
+                if (responseCache_->get(cacheKey, cachedResp) && !cachedResp.isExpired()) {
+                    // 缓存命中，直接应用缓存的响应
+                    cachedResp.applyTo(*resp);
+                    return true;
+                }
+            }
+
             // 提取路径参数并添加到请求对象中
             // 创建新的请求对象副本，用于添加动态路径参数
             HttpRequest newReq(req);  // 因为这里需要用这一次所以是可以改的
@@ -103,6 +139,14 @@ auto Router::route(const HttpRequest& req, HttpResponse* resp) -> bool {
 
             // 执行匹配的动态路由处理器
             handler->handle(newReq, resp);
+
+            // 如果启用了缓存，缓存响应
+            if (cacheConfig.enabled && responseCache_) {
+                CacheKey cacheKey = buildCacheKey(req, cacheConfig);
+                CachedResponse cachedResp(*resp, cacheConfig.ttlSeconds);
+                responseCache_->put(cacheKey, cachedResp);
+            }
+
             return true;
         }
     }

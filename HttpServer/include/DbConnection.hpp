@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-17 12:16:30
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-17 15:13:20
+ * @LastEditTime: 2025-09-20 22:15:22
  * @FilePath: /cyclone-HTTPServer/HttpServer/include/DbConnection.hpp
  * @Description:
  * Copyright (c) 2025 by cyclone, All Rights Reserved.
@@ -17,6 +17,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <sstream>
 
 #include "DbException.hpp"
 
@@ -104,23 +105,26 @@ private:
     void setParam(sql::PreparedStatement* stmt, int index, const std::string& value) {
         stmt->setString(index, value);
     }
-    
+
     void setParam(sql::PreparedStatement* stmt, int index, int value) {
         stmt->setInt(index, value);
     }
-    
+
     void setParam(sql::PreparedStatement* stmt, int index, bool value) {
         stmt->setBoolean(index, value);
     }
-    
+
     void setParam(sql::PreparedStatement* stmt, int index, double value) {
         stmt->setDouble(index, value);
     }
-    
+
     // 其他类型转换为字符串
     template<typename T>
     void setParam(sql::PreparedStatement* stmt, int index, T&& value) {
-        stmt->setString(index, std::to_string(std::forward<T>(value)));
+        // 对于非基本类型，直接转换为字符串
+        std::ostringstream oss;
+        oss << std::forward<T>(value);
+        stmt->setString(index, oss.str());
     }
 };
 }  // namespace http::db

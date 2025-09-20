@@ -1,20 +1,16 @@
 /*
  * @Author: shouyu zhousy953933@gmail.com
- * @Date: 2025-09-16 13:29:23
+ * @Date: 2025-09-20 21:39:00
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-16 20:07:10
- * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/src/main.cpp
- * @Description:
- * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
+ * @LastEditTime: 2025-09-20 22:21:42
+ * @FilePath: /cyclone-HTTPServer/WebApps/MemeServer/backend/src/main.cpp
+ * @Description: 热梗测试服务器主程序
+ * Copyright (c) 2025 by cyclone, All Rights Reserved.
  */
 #include <muduo/base/Logging.h>
-#include <muduo/base/TimeZone.h>
-#include <muduo/net/EventLoop.h>
-#include <muduo/net/TcpServer.h>
 #include <iostream>
-#include <string>
-
 #include "../include/MemeServer.hpp"
+#include <muduo/base/TimeZone.h>
 
 int main(int argc, char* argv[]) {
     constexpr int DEFALULT_PORT = 8080;
@@ -54,10 +50,27 @@ int main(int argc, char* argv[]) {
                 break;
         }
     }
-
-    muduo::Logger::setLogLevel(muduo::Logger::WARN);
+    
+    // 设置日志级别
     muduo::Logger::setLogLevel(muduo::Logger::DEBUG);
-    MemeServer server(port, serverName);
-    server.setThreadNum(4);
-    server.start();
+
+    try {
+        // 创建服务器
+        MemeServer server(port, serverName);
+
+        // 设置线程数
+        server.setThreadNum(4);
+
+        LOG_INFO << "MemeServer starting on port " << port;
+
+        // 启动服务器
+        server.start();
+
+        LOG_INFO << "MemeServer started successfully";
+
+        return 0;
+    } catch (const std::exception& e) {
+        LOG_ERROR << "Server error: " << e.what();
+        return 1;
+    }
 }

@@ -36,7 +36,6 @@ public:
     struct RouterKey {
         HttpMethod method;
         std::string path;
-
         auto operator==(const RouterKey& other) const -> bool {
             return method == other.method && path == other.path;
         }
@@ -90,18 +89,37 @@ public:
     }
 
 
-    // 注册动态路由处理器
+    // 注册动态路由处理器（无缓存）
     void addRegexHandler(HttpMethod method, const std::string& path, HandlerPtr handler) {
         std::regex pathRegex = convertToRegex(path);
-        regexHandlers_.emplace_back(method, pathRegex, handler);
+        regexHandlers_.emplace_back(method, pathRegex, handler, CacheConfig{});
     }
 
+    // 注册动态路由处理器（支持缓存）
+    void addRegexHandler(HttpMethod method, const std::string& path, HandlerPtr handler,
+                        const CacheConfig& cacheConfig) {
+        std::regex pathRegex = convertToRegex(path);
+        regexHandlers_.emplace_back(method, pathRegex, handler, cacheConfig);
+        if (cacheConfig.enabled && !responseCache_) {
+            responseCache_ = createCacheImplementation(cacheConfig);
+        }
+    }
 
-    // 注册动态路由处理函数
+    // 注册动态路由处理函数（无缓存）
     void addRegexCallback(HttpMethod method, const std::string& path,
                           const HandlerCallback& callback) {
         std::regex pathRegex = convertToRegex(path);
-        regexCallbacks_.emplace_back(method, pathRegex, callback);
+        regexCallbacks_.emplace_back(method, pathRegex, callback, CacheConfig{});
+    }
+
+    // 注册动态路由处理函数（支持缓存）
+    void addRegexCallback(HttpMethod method, const std::string& path,
+                         const HandlerCallback& callback, const CacheConfig& cacheConfig) {
+        std::regex pathRegex = convertToRegex(path);
+        regexCallbacks_.emplace_back(method, pathRegex, callback, cacheConfig);
+        if (cacheConfig.enabled && !responseCache_) {
+            responseCache_ = createCacheImplementation(cacheConfig);
+        }
     }
 
 
@@ -144,8 +162,11 @@ private:
         HttpMethod method_;
         std::regex pathRegex_;
         HandlerCallback callback_;
+        CacheConfig cacheConfig_;
         RouteCallbackObj(HttpMethod method, std::regex pathRegex, HandlerCallback callback)
-            : method_(method), pathRegex_(std::move(pathRegex)), callback_(std::move(callback)) {}
+            : method_(method), pathRegex_(std::move(pathRegex)), callback_(std::move(callback)), cacheConfig_{} {}
+        RouteCallbackObj(HttpMethod method, std::regex pathRegex, HandlerCallback callback, const CacheConfig& cacheConfig)
+            : method_(method), pathRegex_(std::move(pathRegex)), callback_(std::move(callback)), cacheConfig_(cacheConfig) {}
     };
 
     // 动态路由对象-handler对象形式
@@ -153,13 +174,16 @@ private:
         HttpMethod method_;
         std::regex pathRegex_;
         HandlerPtr handler_;
+        CacheConfig cacheConfig_;
         RouteHandlerObj(HttpMethod method, std::regex pathRegex, HandlerPtr handler)
-            : method_(method), pathRegex_(std::move(pathRegex)), handler_(std::move(handler)) {}
+            : method_(method), pathRegex_(std::move(pathRegex)), handler_(std::move(handler)), cacheConfig_{} {}
+        RouteHandlerObj(HttpMethod method, std::regex pathRegex, HandlerPtr handler, const CacheConfig& cacheConfig)
+            : method_(method), pathRegex_(std::move(pathRegex)), handler_(std::move(handler)), cacheConfig_(cacheConfig) {}
     };
     auto buildCacheKey(const HttpRequest& req, const CacheConfig& config) -> std::string;
     auto isRouteCacheable(const Router& router, const HttpRequest& req) -> bool;
 
-    // 缓存配置映射：路由键 -> 缓存配置
+    // 静态路由缓存配置映射：路由键 -> 缓存配置
     std::unordered_map<RouterKey, CacheConfig, RouterHash> routeCacheConfigs_;
 
     // 响应缓存：缓存键 -> 缓存的响应

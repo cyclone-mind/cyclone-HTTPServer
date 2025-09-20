@@ -20,7 +20,7 @@ find_library(MYSQLCPPCONN_LIBRARY
 # 2. 添加头文件搜索目录
 include_directories(
     ${PROJECT_SOURCE_DIR}/HttpServer/include
-    ${PROJECT_SOURCE_DIR}/WebApps/SimpleServer/backend/include
+    ${PROJECT_SOURCE_DIR}/WebApps/MemeServer/backend/include
     /usr/include/mysql-cppconn-8
     /usr/include/mysql
     ${OPENSSL_INCLUDE_DIR}
@@ -36,23 +36,23 @@ file(GLOB CACHE_SRC
     "${PROJECT_SOURCE_DIR}/HttpServer/src/Cache/*.cpp"
 )
 
-file(GLOB_RECURSE SIMEPLE_SERVER_SRC
-    "${PROJECT_SOURCE_DIR}/WebApps/SimpleServer/backend/src/*.cpp"
+file(GLOB_RECURSE MEME_SERVER_SRC
+    "${PROJECT_SOURCE_DIR}/WebApps/MemeServer/backend/src/*.cpp"
 )
 # 4. 添加主源文件
-set(MAIN_SRC "${PROJECT_SOURCE_DIR}/WebApps/SimpleServer/backend/src/main.cpp")
+set(MAIN_SRC "${PROJECT_SOURCE_DIR}/WebApps/MemeServer/backend/src/main.cpp")
 
 # 5. 创建可执行文件
-add_executable(simple_server
+add_executable(meme_server
     ${MAIN_SRC}
     ${HTTP_SERVER_SRC}
     ${CACHE_SRC}
-    ${SIMEPLE_SERVER_SRC}
+    ${MEME_SERVER_SRC}
 )
 
 # 6. 链接动态库
 target_link_libraries(
-    simple_server
+    meme_server
     pthread
     ${MUDUO_NET_LIBRARY}
     ${MUDUO_BASE_LIBRARY}

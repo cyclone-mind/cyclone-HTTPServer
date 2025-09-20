@@ -2,8 +2,8 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:26:05
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-20 14:10:28
- * @FilePath: /cyclone-HTTPServer/WebApps/SimpleServer/backend/include/MemeServer.hpp
+ * @LastEditTime: 2025-09-20 21:38:02
+ * @FilePath: /cyclone-HTTPServer/WebApps/MemeServer/backend/include/MemeServer.hpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
  */
@@ -17,12 +17,24 @@
 #include "../../../../HttpServer/include/SessionManager.hpp"
 #include "../../../../HttpServer/include/SslConfig.hpp"
 
+#include "../include/JsonResponse.hpp"
+#include "../include/handlers/AuthHandler.hpp"
+#include "../include/handlers/TestHandler.hpp"
+#include "../include/handlers/LeaderboardHandler.hpp"
+#include "../include/handlers/UserHandler.hpp"
+
 class EntryHandler;
 
 class MemeServer {
 private:
     http::HttpServer httpServer_;
     http::MysqlUtil mysqlUtil_;
+
+    // 热梗测试相关handler
+    std::unique_ptr<meme::AuthHandler> authHandler_;
+    std::unique_ptr<meme::TestHandler> testHandler_;
+    std::unique_ptr<meme::LeaderboardHandler> leaderboardHandler_;
+    std::unique_ptr<meme::UserHandler> userHandler_;
 
 public:
     MemeServer(int port, const std::string& name,
@@ -43,14 +55,14 @@ public:
 private:
     auto initialize() -> void {
         // 初始化数据库连接池
-        http::MysqlUtil::init("tcp://127.0.0.1:3306", "root", "root123", "Meme", 10);
+        http::MysqlUtil::init("tcp://127.0.0.1:3306", "root", "root123", "MemeTest", 10);
         // 初始化会话
         initializeSession();
         // 初始化中间件
         initializeMiddleware();
         // 初始化路由
         initializeRouter();
-        // initializeSsl();  
+        // initializeSsl();
     }
     auto initializeMiddleware() -> void {
         // 创建中间件
