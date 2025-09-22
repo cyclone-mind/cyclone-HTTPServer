@@ -61,7 +61,7 @@ struct CorsConfig
         CorsConfig config;
         config.allowedOrigins = {"*"};
         config.allowedMethods = {"GET", "POST", "PUT", "DELETE", "OPTIONS"};
-        config.allowedHeaders = {"Content-Type", "Authorization"};
+        config.allowedHeaders = {"Content-Type", "Authorization","Cookie"};
         return config;
     }
 

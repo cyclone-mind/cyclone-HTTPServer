@@ -29,7 +29,7 @@ void TestHandler::handleGetQuestions(const http::HttpRequest& req, http::HttpRes
         int count = 10; // 默认10道题
         std::string category = "";
 
-        std::string countStr = const_cast<http::HttpRequest&>(req).getQueryParam("count");
+        std::string countStr = req.getQueryParam("count");
         if (!countStr.empty()) {
             try {
                 count = std::stoi(countStr);
@@ -38,7 +38,7 @@ void TestHandler::handleGetQuestions(const http::HttpRequest& req, http::HttpRes
             }
         }
 
-        category = const_cast<http::HttpRequest&>(req).getQueryParam("category");
+        category = req.getQueryParam("category");
 
         // 限制题目数量
         if (count <= 0 || count > 50) {

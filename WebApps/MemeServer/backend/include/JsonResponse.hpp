@@ -32,6 +32,7 @@ public:
         resp->setStatusCode(http::HttpStatusCode::C200Ok);
         resp->setContentType("application/json");
         resp->setBody(response.dump(2));
+        resp->setContentLength(resp->getBody().size());
     }
 
     // 错误响应
@@ -44,6 +45,7 @@ public:
         resp->setStatusCode(http::HttpStatusCode::C200Ok); // 业务错误用200状态码，通过code字段区分
         resp->setContentType("application/json");
         resp->setBody(response.dump(2));
+        resp->setContentLength(resp->getBody().size());
     }
 
     // 未授权响应

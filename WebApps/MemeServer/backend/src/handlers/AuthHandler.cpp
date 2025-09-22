@@ -122,11 +122,25 @@ bool AuthHandler::userExists(const std::string& userId) {
 
 // 创建新用户
 bool AuthHandler::createUser(const std::string& userId, const std::string& password,
-                           const std::string& nickname) {
+                            const std::string& nickname) {
     try {
         std::string sql = "INSERT INTO users (user_id, password, nickname) VALUES (?, ?, ?)";
+        LOG_INFO << "Executing SQL: " << sql << " with params: " << userId << ", " << password << ", " << nickname;
         int result = http::MysqlUtil::executeUpdate(sql, userId, password, nickname);
-        return result > 0;
+        LOG_INFO << "SQL execution result: " << result;
+
+        // 验证插入是否成功
+        if (result > 0) {
+            auto verifyResult = http::MysqlUtil::executeQuery("SELECT id FROM users WHERE user_id = ?", userId);
+            if (verifyResult && verifyResult->next()) {
+                LOG_INFO << "User creation verified successfully, user ID: " << verifyResult->getInt("id");
+                return true;
+            } else {
+                LOG_ERROR << "User creation verification failed - user not found after insert";
+                return false;
+            }
+        }
+        return false;
     } catch (const std::exception& e) {
         LOG_ERROR << "Create user error: " << e.what();
         return false;

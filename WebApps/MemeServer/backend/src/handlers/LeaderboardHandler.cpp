@@ -19,7 +19,11 @@ void LeaderboardHandler::handleGetTotalLeaderboard(const http::HttpRequest& req,
         int page = 1;
         int limit = 20;
 
-        std::string pageStr = const_cast<http::HttpRequest&>(req).getQueryParam("page");
+        std::string pageStr = req.getQueryParam("page");
+        std::string limitStr = req.getQueryParam("limit");
+
+        LOG_INFO << "Category leaderboard parsed query params - pageStr: '" << pageStr << "', limitStr: '" << limitStr << "'";
+
         if (!pageStr.empty()) {
             try {
                 page = std::stoi(pageStr);
@@ -29,7 +33,6 @@ void LeaderboardHandler::handleGetTotalLeaderboard(const http::HttpRequest& req,
             }
         }
 
-        std::string limitStr = const_cast<http::HttpRequest&>(req).getQueryParam("limit");
         if (!limitStr.empty()) {
             try {
                 limit = std::stoi(limitStr);
@@ -38,6 +41,8 @@ void LeaderboardHandler::handleGetTotalLeaderboard(const http::HttpRequest& req,
                 limit = 20;
             }
         }
+
+        LOG_INFO << "Category leaderboard final params - page: " << page << ", limit: " << limit;
 
         nlohmann::json rankings = getLeaderboardData("", page, limit);
         int total = getLeaderboardTotal("");
@@ -61,7 +66,7 @@ void LeaderboardHandler::handleGetTotalLeaderboard(const http::HttpRequest& req,
 void LeaderboardHandler::handleGetCategoryLeaderboard(const http::HttpRequest& req, http::HttpResponse* resp) {
     try {
         // 从路径参数获取分类
-        std::string category = const_cast<http::HttpRequest&>(req).getPathParam("category");
+        std::string category = req.getPathParam("category");
         if (category.empty()) {
             JsonResponse::badRequest(resp, "分类参数不能为空");
             return;
@@ -71,7 +76,11 @@ void LeaderboardHandler::handleGetCategoryLeaderboard(const http::HttpRequest& r
         int page = 1;
         int limit = 20;
 
-        std::string pageStr = const_cast<http::HttpRequest&>(req).getQueryParam("page");
+        std::string pageStr = req.getQueryParam("page");
+        std::string limitStr = req.getQueryParam("limit");
+
+        LOG_INFO << "Parsed query params - pageStr: '" << pageStr << "', limitStr: '" << limitStr << "'";
+
         if (!pageStr.empty()) {
             try {
                 page = std::stoi(pageStr);
@@ -81,7 +90,6 @@ void LeaderboardHandler::handleGetCategoryLeaderboard(const http::HttpRequest& r
             }
         }
 
-        std::string limitStr = const_cast<http::HttpRequest&>(req).getQueryParam("limit");
         if (!limitStr.empty()) {
             try {
                 limit = std::stoi(limitStr);
@@ -90,6 +98,8 @@ void LeaderboardHandler::handleGetCategoryLeaderboard(const http::HttpRequest& r
                 limit = 20;
             }
         }
+
+        LOG_INFO << "Final params - page: " << page << ", limit: " << limit;
 
         nlohmann::json rankings = getLeaderboardData(category, page, limit);
         int total = getLeaderboardTotal(category);
@@ -119,8 +129,7 @@ nlohmann::json LeaderboardHandler::getLeaderboardData(const std::string& categor
 
         if (category.empty()) {
             // 总排行榜
-            sql = "SELECT u.user_id, u.nickname, u.total_score, u.test_count, "
-                  "ROW_NUMBER() OVER (ORDER BY u.total_score DESC) as rank "
+            sql = "SELECT u.user_id, u.nickname, u.total_score, u.test_count "
                   "FROM users u "
                   "ORDER BY u.total_score DESC "
                   "LIMIT ? OFFSET ?";
@@ -128,8 +137,7 @@ nlohmann::json LeaderboardHandler::getLeaderboardData(const std::string& categor
             // 分类排行榜 - 基于该分类的测试记录计算得分
             sql = "SELECT u.user_id, u.nickname, "
                   "COALESCE(SUM(tr.score), 0) as category_score, "
-                  "COUNT(tr.id) as category_tests, "
-                  "ROW_NUMBER() OVER (ORDER BY COALESCE(SUM(tr.score), 0) DESC) as rank "
+                  "COUNT(tr.id) as category_tests "
                   "FROM users u "
                   "LEFT JOIN test_records tr ON u.id = tr.user_id AND tr.category = ? "
                   "GROUP BY u.id, u.user_id, u.nickname "
@@ -142,9 +150,10 @@ nlohmann::json LeaderboardHandler::getLeaderboardData(const std::string& categor
             db_->executeQuery(sql, category, limit, offset);
 
         if (result) {
+            int currentRank = offset + 1;
             while (result->next()) {
                 nlohmann::json ranking = {
-                    {"rank", result->getInt("rank")},
+                    {"rank", currentRank++},
                     {"user_id", result->getString("user_id")},
                     {"nickname", result->getString("nickname")}
                 };

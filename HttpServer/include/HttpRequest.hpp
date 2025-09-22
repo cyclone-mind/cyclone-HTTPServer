@@ -76,7 +76,7 @@ public:
     auto setQueryParams(std::string key, std::string value) -> void {
         queryParams_[std::move(key)] = std::move(value);
     }
-    auto getQueryParam(const std::string& key) -> std::string{
+    auto getQueryParam(const std::string& key) const -> std::string{
         auto item = queryParams_.find(key);
         return (item == queryParams_.end()) ? std::string() : item->second;
     }

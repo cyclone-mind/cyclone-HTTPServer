@@ -53,7 +53,7 @@ void UserHandler::handleGetHistory(const http::HttpRequest& req, http::HttpRespo
         int page = 1;
         int limit = 10;
 
-        std::string pageStr = const_cast<http::HttpRequest&>(req).getQueryParam("page");
+        std::string pageStr = req.getQueryParam("page");
         if (!pageStr.empty()) {
             try {
                 page = std::stoi(pageStr);
@@ -63,7 +63,7 @@ void UserHandler::handleGetHistory(const http::HttpRequest& req, http::HttpRespo
             }
         }
 
-        std::string limitStr = const_cast<http::HttpRequest&>(req).getQueryParam("limit");
+        std::string limitStr = req.getQueryParam("limit");
         if (!limitStr.empty()) {
             try {
                 limit = std::stoi(limitStr);

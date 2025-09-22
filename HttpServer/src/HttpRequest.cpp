@@ -46,23 +46,28 @@ auto HttpRequest::parseRequestLine(const char* begin, const char* end) -> bool {
 
 auto HttpRequest::parseQueryParams(const char* begin, const char* end) -> void {
     const char* start = begin;
-    const char* ampersand = start;
-    
-    while (ampersand <= end) {
-        ampersand = std::find(start, end, '&');
-        if (ampersand > end) {
-            ampersand = end;
+
+    while (start < end) {
+        const char* ampersand = std::find(start, end, '&');
+        if (ampersand == end) {
+            // 最后一个参数，没有&
+            const char* equal = std::find(start, end, '=');
+            if (equal != end) {
+                std::string key(start, equal);
+                std::string value(equal + 1, end);
+                setQueryParams(std::move(key), std::move(value));
+            }
+            break;
+        } else {
+            // 有&，解析当前参数
+            const char* equal = std::find(start, ampersand, '=');
+            if (equal != ampersand) {
+                std::string key(start, equal);
+                std::string value(equal + 1, ampersand);
+                setQueryParams(std::move(key), std::move(value));
+            }
+            start = ampersand + 1;
         }
-        
-        // 解析单个参数 key=value
-        const char* equal = std::find(start, ampersand, '=');
-        if (equal != ampersand) {
-            std::string key(start, equal);
-            std::string value(equal + 1, ampersand);
-            setQueryParams(std::move(key), std::move(value));
-        }
-        
-        start = ampersand + 1;
     }
 }
 

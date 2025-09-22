@@ -1,0 +1,85 @@
+{
+
+  // launch.json版本号
+
+  "version": "0.2.0",
+
+  "configurations": [
+
+    {
+
+      // 调试配置名称，显示在调试配置下拉菜单中
+
+      "name": "Debug Current File",
+
+      // 调试器类型，cppdbg表示C/C++调试器
+
+      "type": "cppdbg",
+
+      // 请求类型，launch表示启动新进程进行调试
+
+      "request": "launch",
+
+      // 要调试的可执行文件路径
+
+      "program": "${workspaceFolder}/build/meme_server", // 可执行文件路径与当前源文件匹配
+
+      // 传递给程序的命令行参数
+
+      "args": [],
+
+      // 是否在程序入口点停止（main函数）
+
+      "stopAtEntry": false,
+
+      // 工作目录，程序运行时的当前目录
+
+      "cwd": "${workspaceFolder}",
+
+      // 环境变量设置
+
+      "environment": [],
+
+      // 是否使用外部控制台
+
+      "externalConsole": false,
+
+      // 使用的调试器模式
+
+      "MIMode": "gdb",
+
+      // 调试器启动时执行的命令
+
+      "setupCommands": [
+
+        {
+
+          // 命令描述
+
+          "description": "Enable pretty-printing for gdb",
+
+          // 实际执行的gdb命令
+
+          "text": "-enable-pretty-printing",
+
+          // 是否忽略命令执行失败
+
+          "ignoreFailures": true
+
+        }
+
+      ],
+
+      // 在调试前执行的任务名称，与tasks.json中的label对应
+
+    //   "preLaunchTask": "build-debug", // 在调试前执行编译任务
+
+      // gdb调试器的路径
+
+      "miDebuggerPath": "/usr/bin/gdb"
+
+    }
+
+  ]
+
+}

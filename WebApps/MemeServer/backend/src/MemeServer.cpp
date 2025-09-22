@@ -79,6 +79,6 @@ auto MemeServer::initializeRouter() -> void {
         });
 
     // 原有路由保持兼容
-    httpServer_.Get("/", std::make_shared<EntryHandler>(this));
-    httpServer_.Get("/test-db", std::make_shared<TestDbConHandler>(this));
+    // httpServer_.Get("/", std::make_shared<EntryHandler>(this));
+    // httpServer_.Get("/test-db", std::make_shared<TestDbConHandler>(this));
 }

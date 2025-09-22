@@ -10,6 +10,7 @@
 
 #pragma once
 #include <muduo/net/TcpServer.h>
+#include <muduo/base/Logging.h>
 
 #include <cstdio>
 #include <utility>
@@ -68,7 +69,9 @@ public:
     }
 
     void addHeader(const std::string& key, const std::string& value) {
+        LOG_DEBUG << "addHeader called with key: '" << key << "', value: '" << value << "'";
         headers_[key] = value;
+        LOG_DEBUG << "addHeader completed successfully";
     }
 
     [[nodiscard]] auto getBody() const -> const std::string& {

@@ -2,7 +2,7 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 13:26:05
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-20 21:38:02
+ * @LastEditTime: 2025-09-22 16:57:06
  * @FilePath: /cyclone-HTTPServer/WebApps/MemeServer/backend/include/MemeServer.hpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -66,7 +66,9 @@ private:
     }
     auto initializeMiddleware() -> void {
         // 创建中间件
-        auto corsMiddleware = std::make_shared<http::middleware::CorsMiddleware>();
+        auto corsConfig = http::middleware::CorsConfig::defaultConfig();
+
+        auto corsMiddleware = std::make_shared<http::middleware::CorsMiddleware>(corsConfig);
         // 添加中间件
         httpServer_.addMiddleware(corsMiddleware);
     }

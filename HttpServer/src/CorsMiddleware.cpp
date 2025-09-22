@@ -2,20 +2,22 @@
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-16 16:10:49
  * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-16 18:26:34
+ * @LastEditTime: 2025-09-22 16:56:25
  * @FilePath: /cyclone-HTTPServer/HttpServer/src/CorsMiddleware.cpp
  * @Description:
  * Copyright (c) 2025 by ${git_name} email: ${git_email}, All Rights Reserved.
  */
 
-#include <muduo/base/Logging.h>
-#include <sstream>
 #include "../include/CorsMiddleware.hpp"
+
+#include <muduo/base/Logging.h>
+
+#include <sstream>
 
 namespace http::middleware {
 
-CorsMiddleware::CorsMiddleware(const CorsConfig& config) : config_(config) {}
-    
+CorsMiddleware::CorsMiddleware(CorsConfig config) : config_(std::move(config)) {}
+
 void CorsMiddleware::before(HttpRequest& request) {
     LOG_DEBUG << "CorsMiddleware::before - Processing request";
 
@@ -40,8 +42,8 @@ void CorsMiddleware::handlePreflightRequest(const HttpRequest& request, HttpResp
     const std::string& origin = request.getHeader("Origin");
     // 如果没有Origin头，使用通配符处理
     std::string effectiveOrigin = origin.empty() ? "*" : origin;
-    
-    if (!isOriginAllowed(origin)) {
+
+    if (!origin.empty() && !isOriginAllowed(origin)) {
         LOG_WARN << "Origin not allowed: " << origin;
         response.setStatusLine(request.version(), HttpStatusCode::C403Forbidden, "Forbidden");
         response.setBody("Origin not allowed");
@@ -57,7 +59,10 @@ void CorsMiddleware::handlePreflightRequest(const HttpRequest& request, HttpResp
 
 void CorsMiddleware::addCorsHeaders(HttpResponse& response, const std::string& origin) {
     try {
-        response.addHeader("Access-Control-Allow-Origin", origin);
+        // 检查origin是否为空
+        if (!origin.empty()) {
+            response.addHeader("Access-Control-Allow-Origin", origin);
+        }
 
         if (config_.allowCredentials) {
             response.addHeader("Access-Control-Allow-Credentials", "true");
@@ -96,6 +101,11 @@ auto CorsMiddleware::join(const std::vector<std::string>& strings, const std::st
 auto CorsMiddleware::after(HttpResponse& response) -> void {
     LOG_DEBUG << "CorsMiddleware::after - Processing response";
 
+    // 对于预检请求（204），已经添加了CORS头，不需要再次添加
+    if (response.getStatusCode() == HttpStatusCode::C204NoContent) {
+        return;
+    }
+
     // 直接添加CORS头，简化处理逻辑
     if (!config_.allowedOrigins.empty()) {
         // 如果允许所有源
@@ -103,8 +113,10 @@ auto CorsMiddleware::after(HttpResponse& response) -> void {
             config_.allowedOrigins.end()) {
             addCorsHeaders(response, "*");
         } else {
-            // 添加第一个允许的源
-            addCorsHeaders(response, config_.allowedOrigins[0]);
+            // 添加第一个允许的源（确保索引有效）
+            if (!config_.allowedOrigins.empty()) {
+                addCorsHeaders(response, config_.allowedOrigins[0]);
+            }
         }
     }
 }

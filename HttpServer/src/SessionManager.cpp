@@ -20,8 +20,10 @@ auto SessionManager::getSession(const HttpRequest& req, HttpResponse* resp)
             // 会话不存在或已过期，创建新会话
             sessionId = generateSessionId();
             session = std::make_shared<Session>(sessionId, this);
-            // 将新会话ID设置到响应Cookie中
-            setSessionCookie(sessionId, resp);
+            // 将新会话ID设置到响应Cookie中（如果resp不为null）
+            if (resp != nullptr) {
+                setSessionCookie(sessionId, resp);
+            }
         } else {
             // 为现有有效会话设置管理器
             session->setManager(this);
@@ -30,8 +32,10 @@ auto SessionManager::getSession(const HttpRequest& req, HttpResponse* resp)
         // 没有Cookie，创建新会话
         std::string sessionId = generateSessionId();
         session = std::make_shared<Session>(sessionId, this);
-        // 将新会话ID设置到响应Cookie中
-        setSessionCookie(sessionId, resp);
+        // 将新会话ID设置到响应Cookie中（如果resp不为null）
+        if (resp != nullptr) {
+            setSessionCookie(sessionId, resp);
+        }
     }
     // 刷新会话的最后访问时间
     session->refresh();
