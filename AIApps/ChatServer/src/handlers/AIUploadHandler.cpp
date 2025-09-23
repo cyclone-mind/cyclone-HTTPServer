@@ -5,23 +5,23 @@ void AIUploadHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
 {
     try
     {
-        // ����û��Ƿ��ѵ�¼
+        // 检查用户是否已登录
         auto session = server_->getSessionManager()->getSession(req, resp);
         LOG_INFO << "session->getValue(\"isLoggedIn\") = " << session->getValue("isLoggedIn");
         if (session->getValue("isLoggedIn") != "true")
         {
-            // �û�δ��¼������δ��Ȩ����
+            // 用户未登录，返回未授权错误
             json errorResp;
             errorResp["status"] = "error";
             errorResp["message"] = "Unauthorized";
             std::string errorBody = errorResp.dump(4);
 
-            server_->packageResp(req.version(), http::HttpResponse::k401Unauthorized,
+            server_->packageResp(req.version(), http::HttpStatusCode::C401Unauthorized,
                 "Unauthorized", true, "application/json", errorBody.size(),
                 errorBody, resp);
             return;
         }
-        // ��ȡ�û���Ϣ
+        // 获取用户信息
         int userId = std::stoi(session->getValue("userId"));
         std::string username = session->getValue("username");
 
@@ -34,17 +34,17 @@ void AIUploadHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
         }
 
         std::vector<char> buffer(fileOperater.size());
-        fileOperater.readFile(buffer); // �����ļ�����
+        fileOperater.readFile(buffer); // 读取文件内容
         std::string htmlContent(buffer.data(), buffer.size());
 
-        // ��HTML�����в���userId
+        // 在HTML内容中插入userId
         size_t headEnd = htmlContent.find("</head>");
         if (headEnd != std::string::npos)
         {
             std::string script = "<script>const userId = '" + std::to_string(userId) + "';</script>";
             htmlContent.insert(headEnd, script);
         }
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(false);
         resp->setContentType("text/html");
         resp->setContentLength(htmlContent.size());
@@ -52,12 +52,12 @@ void AIUploadHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
     }
     catch (const std::exception& e)
     {
-        // �����쳣�����ش�����Ϣ
+        // 捕获异常，返回错误信息
         json failureResp;
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

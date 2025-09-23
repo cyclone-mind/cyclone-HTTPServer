@@ -24,16 +24,16 @@ public:
     std::string PredictFromMat(const cv::Mat& img);
 
 private:
-    Ort::Env env;
-    std::unique_ptr<Ort::Session> session;
-    std::unique_ptr<Ort::AllocatorWithDefaultOptions> allocator;
+    Ort::Env env;                                           // ONNX Runtime 环境对象
+    std::unique_ptr<Ort::Session> session;                  // ONNX 模型会话
+    std::unique_ptr<Ort::AllocatorWithDefaultOptions> allocator;  // 内存分配器
 
-    std::string input_name;
-    std::string output_name;
-    std::vector<int64_t> input_shape;
-    int input_height{}, input_width{};
+    std::string input_name;                                 // 模型输入节点名称
+    std::string output_name;                                // 模型输出节点名称
+    std::vector<int64_t> input_shape;                       // 模型输入形状 [batch, channels, height, width]
+    int input_height{}, input_width{};                      // 模型输入图像的高度和宽度
 
-    std::vector<std::string> labels; // 存储标签
+    std::vector<std::string> labels;                        // 存储分类标签
 
-    void LoadLabels(const std::string& label_path);
+    void LoadLabels(const std::string& label_path);         // 加载标签文件
 };

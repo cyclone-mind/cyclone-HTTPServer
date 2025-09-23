@@ -15,7 +15,7 @@ void ChatHistoryHandler::handle(const http::HttpRequest& req, http::HttpResponse
             errorResp["message"] = "Unauthorized";
             std::string errorBody = errorResp.dump(4);
 
-            server_->packageResp(req.version(), http::HttpResponse::k401Unauthorized,
+            server_->packageResp(req.version(), http::HttpStatusCode::C401Unauthorized,
                 "Unauthorized", true, "application/json", errorBody.size(),
                 errorBody, resp);
             return;
@@ -58,7 +58,7 @@ void ChatHistoryHandler::handle(const http::HttpRequest& req, http::HttpResponse
 
         std::string successBody = successResp.dump(4);
 
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(false);
         resp->setContentType("application/json");
         resp->setContentLength(successBody.size());
@@ -72,7 +72,7 @@ void ChatHistoryHandler::handle(const http::HttpRequest& req, http::HttpResponse
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

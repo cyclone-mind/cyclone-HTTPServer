@@ -16,7 +16,7 @@ void AIMenuHandler::handle(const http::HttpRequest& req, http::HttpResponse* res
             errorResp["message"] = "Unauthorized";
             std::string errorBody = errorResp.dump(4);
 
-            server_->packageResp(req.version(), http::HttpResponse::k401Unauthorized,
+            server_->packageResp(req.version(), http::HttpStatusCode::C401Unauthorized,
                 "Unauthorized", true, "application/json; charset=utf-8", errorBody.size(),
                 errorBody, resp);
             return;
@@ -46,9 +46,9 @@ void AIMenuHandler::handle(const http::HttpRequest& req, http::HttpResponse* res
             htmlContent.insert(headEnd, script);
         }
 
-        // server_->packageResp(req.version(), HttpResponse::k200Ok, "OK"
+        // server_->packageResp(req.version(), HttpResponse::C200Ok, "OK"
         //             , false, "text/html", htmlContent.size(), htmlContent, resp);
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(false);
         resp->setContentType("text/html; charset=utf-8");
         resp->setContentLength(htmlContent.size());
@@ -61,7 +61,7 @@ void AIMenuHandler::handle(const http::HttpRequest& req, http::HttpResponse* res
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json; charset=utf-8");
         resp->setContentLength(failureBody.size());

@@ -8,7 +8,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
     if (contentType.empty() || contentType != "application/json" || req.getBody().empty())
     {
         LOG_INFO << "content" << req.getBody();
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(0);
@@ -28,6 +28,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
         {
             // 获取会话
             auto session = server_->getSessionManager()->getSession(req, resp);
+            
             // 会话管理：同一会话认为为同一会话，通过浏览器中的cookie判断
             // 不同页面的访问是否使用同一个会话，只有当页面刷新时才会重新创建会话登录
             // 那么判断用户是否已经在线通过会话判断
@@ -50,7 +51,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
                 successResp["userId"] = userId;
                 std::string successBody = successResp.dump(4);
 
-                resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+                resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
                 resp->setCloseConnection(false);
                 resp->setContentType("application/json");
                 resp->setContentLength(successBody.size());
@@ -66,7 +67,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
                 failureResp["error"] = "账号已经在线重复登录";
                 std::string failureBody = failureResp.dump(4);
 
-                resp->setStatusLine(req.version(), http::HttpResponse::k403Forbidden, "Forbidden");
+                resp->setStatusLine(req.version(), http::HttpStatusCode::C403Forbidden, "Forbidden");
                 resp->setCloseConnection(true);
                 resp->setContentType("application/json");
                 resp->setContentLength(failureBody.size());
@@ -82,7 +83,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
             failureResp["message"] = "Invalid username or password";
             std::string failureBody = failureResp.dump(4);
 
-            resp->setStatusLine(req.version(), http::HttpResponse::k401Unauthorized, "Unauthorized");
+            resp->setStatusLine(req.version(), http::HttpStatusCode::C401Unauthorized, "Unauthorized");
             resp->setCloseConnection(false);
             resp->setContentType("application/json");
             resp->setContentLength(failureBody.size());
@@ -97,7 +98,7 @@ void ChatLoginHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

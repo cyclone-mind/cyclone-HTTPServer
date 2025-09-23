@@ -36,10 +36,12 @@ void ChatServer::initialize() {
     initializeMiddleware();
     // 初始化路由
     initializeRouter();
+    // 初始化 ssl
+    // initializeSsl();
 }
 
 void ChatServer::initChatMessage() {
-    //从chat_message表中读取数据，将指定user_id对应的消息添加到chatInformation中
+    //从 chat_message 表中读取数据，将指定 user_id 对应的消息添加到 chatInformation 中
     std::cout << "initChatMessage start ! " << std::endl;
     readDataFromMySQL();
     std::cout << "initChatMessage success ! " << std::endl;
@@ -191,8 +193,30 @@ void ChatServer::packageResp(const std::string& version,
     {
         LOG_ERROR << "Error in packageResp: " << e.what();
         // 设置一个简单的错误响应
-        resp->setStatusCode(http::HttpResponse::k500InternalServerError);
+        resp->setStatusCode(http::HttpStatusCode::C500InternalServerError);
         resp->setStatusMessage("Internal Server Error");
         resp->setCloseConnection(true);
     }
 }
+
+void ChatServer::initializeSsl() {
+        httpServer_.enableSSL(true);
+        ssl::SslConfig sslConfig;
+        const std::string certPath = "/opt/cyclone/ssl";
+
+        std::string certFile = certPath + "/kktui.dpdns.org_bundle.crt";
+        std::string keyFile = certPath + "/kktui.dpdns.org.key";
+        sslConfig.setCertificateFile(certFile);
+        sslConfig.setPrivateKeyFile(keyFile);
+        
+
+        sslConfig.setProtocolVersion(ssl::SSLVersion::TLS_1_2);
+        sslConfig.setCipherList("ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!SRP:!CAMELLIA");
+        
+        sslConfig.setVerifyClient(false);
+        sslConfig.setVerifyDepth(1);
+        
+        sslConfig.setSessionTimeout(300); // seconds
+        sslConfig.setSessionCacheSize(10240);
+        httpServer_.setSslConfig(sslConfig);
+    }

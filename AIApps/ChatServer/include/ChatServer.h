@@ -62,7 +62,7 @@ private:
 	void initializeSession();
 	void initializeRouter();
 	void initializeMiddleware();
-	
+	void initializeSsl();
 
 	void readDataFromMySQL();
 
@@ -74,7 +74,7 @@ private:
 	{
 		httpServer_.setSessionManager(std::move(manager));
 	}
-	http::session::SessionManager* getSessionManager() const
+	auto getSessionManager() const -> http::session::SessionManager*
 	{
 		return httpServer_.getSessionManager();
 	}

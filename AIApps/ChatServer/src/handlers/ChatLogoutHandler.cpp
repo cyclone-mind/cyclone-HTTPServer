@@ -5,7 +5,7 @@ void ChatLogoutHandler::handle(const http::HttpRequest& req, http::HttpResponse*
     auto contentType = req.getHeader("Content-Type");
     if (contentType.empty() || contentType != "application/json" || req.getBody().empty())
     {
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(0);
@@ -36,7 +36,7 @@ void ChatLogoutHandler::handle(const http::HttpRequest& req, http::HttpResponse*
         json response;
         response["message"] = "logout successful";
         std::string responseBody = response.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(responseBody.size());
@@ -49,7 +49,7 @@ void ChatLogoutHandler::handle(const http::HttpRequest& req, http::HttpResponse*
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

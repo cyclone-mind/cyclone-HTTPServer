@@ -15,7 +15,7 @@ void ChatSendHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
             errorResp["message"] = "Unauthorized";
             std::string errorBody = errorResp.dump(4);
 
-            server_->packageResp(req.version(), http::HttpResponse::k401Unauthorized,
+            server_->packageResp(req.version(), http::HttpStatusCode::C401Unauthorized,
                 "Unauthorized", true, "application/json", errorBody.size(),
                 errorBody, resp);
             return;
@@ -29,7 +29,7 @@ void ChatSendHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
         {
             std::lock_guard<std::mutex> lock(server_->mutexForChatInformation);
             if (server_->chatInformation.find(userId) == server_->chatInformation.end()) {
-                //在linux环境中通过环境变量获取相应的api-key初始化一个AIHelper
+                //在linux环境中通过环境变量获取相应的 api-key 初始化一个AIHelper
                 const char* apiKey = std::getenv("DASHSCOPE_API_KEY");
                 if (!apiKey) {
                     std::cerr << "Error: DASHSCOPE_API_KEY not found in environment!" << std::endl;
@@ -59,7 +59,7 @@ void ChatSendHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
         successResp["Information"] = aiInformation;
         std::string successBody = successResp.dump(4);
 
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(false);
         resp->setContentType("application/json");
         resp->setContentLength(successBody.size());
@@ -73,7 +73,7 @@ void ChatSendHandler::handle(const http::HttpRequest& req, http::HttpResponse* r
         failureResp["status"] = "error";
         failureResp["message"] = e.what();
         std::string failureBody = failureResp.dump(4);
-        resp->setStatusLine(req.version(), http::HttpResponse::k400BadRequest, "Bad Request");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C400BadRequest, "Bad Request");
         resp->setCloseConnection(true);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

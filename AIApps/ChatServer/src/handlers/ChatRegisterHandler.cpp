@@ -20,7 +20,7 @@ void ChatRegisterHandler::handle(const http::HttpRequest& req, http::HttpRespons
         successResp["userId"] = userId;
         std::string successBody = successResp.dump(4);
 
-        resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
         resp->setCloseConnection(false);
         resp->setContentType("application/json");
         resp->setContentLength(successBody.size());
@@ -34,7 +34,7 @@ void ChatRegisterHandler::handle(const http::HttpRequest& req, http::HttpRespons
         failureResp["message"] = "username already exists";
         std::string failureBody = failureResp.dump(4);
 
-        resp->setStatusLine(req.version(), http::HttpResponse::k409Conflict, "Conflict");
+        resp->setStatusLine(req.version(), http::HttpStatusCode::C409Conflict, "Conflict");
         resp->setCloseConnection(false);
         resp->setContentType("application/json");
         resp->setContentLength(failureBody.size());

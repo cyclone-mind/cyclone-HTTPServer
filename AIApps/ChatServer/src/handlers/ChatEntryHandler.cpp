@@ -22,7 +22,7 @@ void ChatEntryHandler::handle(const http::HttpRequest& req, http::HttpResponse* 
     fileOperater.readFile(buffer); // 读取文件内容
     std::string bufStr = std::string(buffer.data(), buffer.size());
 
-    resp->setStatusLine(req.version(), http::HttpResponse::k200Ok, "OK");
+    resp->setStatusLine(req.version(), http::HttpStatusCode::C200Ok, "OK");
     resp->setCloseConnection(false);
     resp->setContentType("text/html");
     resp->setContentLength(bufStr.size());

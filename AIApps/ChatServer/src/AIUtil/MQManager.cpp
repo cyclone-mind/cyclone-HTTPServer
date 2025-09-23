@@ -5,9 +5,9 @@ MQManager::MQManager(size_t poolSize)
     : poolSize_(poolSize), counter_(0) {
     for (size_t i = 0; i < poolSize_; ++i) {
         auto conn = std::make_shared<MQConn>();
-        // ���� Create
+        // 创建RabbitMQ通道连接
         conn->channel = AmqpClient::Channel::Create("localhost", 5672, "guest", "guest", "/");
-        // ���ﲻ�ظ��������У����� exclusive use
+        // 将连接添加到连接池
         pool_.push_back(conn);
     }
 }
@@ -38,24 +38,24 @@ void RabbitMQThreadPool::shutdown() {
 
 void RabbitMQThreadPool::worker(int id) {
     try {
-        // ÿ���̶߳��� channel
+        // 每个工作线程创建独立的RabbitMQ通道
         auto channel = AmqpClient::Channel::Create(rabbitmq_host_, 5672, "guest", "guest", "/");
-        // �������У��� exclusive��
+        // 声明队列，不设置exclusive独占模式
         channel->DeclareQueue(queue_name_, false, true, false, false);
-        //��ֹ���֣�channel error: 403: AMQP_BASIC_CONSUME_METHOD caused: ACCESS_REFUSED - queue 
+        // 防止出现错误：channel error: 403: AMQP_BASIC_CONSUME_METHOD caused: ACCESS_REFUSED - queue
         // 'sql_queue' in vhost '/' in exclusive use
         //std::string consumer_tag = channel->BasicConsume(queue_name_, "");
         std::string consumer_tag = channel->BasicConsume(queue_name_, "", true, false, false);
 
-        channel->BasicQos(consumer_tag, 1); // ÿ���߳�һ��ֻ����һ����Ϣ
+        channel->BasicQos(consumer_tag, 1); // 每个线程一次只消费一个消息
 
         while (!stop_) {
             AmqpClient::Envelope::ptr_t env;
-            bool ok = channel->BasicConsumeMessage(consumer_tag, env, 500); // 500ms ��ʱ
+            bool ok = channel->BasicConsumeMessage(consumer_tag, env, 500); // 500ms 超时
             if (ok && env) {
                 std::string msg = env->Message()->Body();
-                handler_(msg);          // �û�������Ϣ
-                channel->BasicAck(env); // ȷ����Ϣ
+                handler_(msg);          // 调用用户处理函数处理消息
+                channel->BasicAck(env); // 确认消息处理完成
             }
         }
 
