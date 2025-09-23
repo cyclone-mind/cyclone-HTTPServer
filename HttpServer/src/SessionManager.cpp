@@ -29,7 +29,7 @@ auto SessionManager::getSession(const HttpRequest& req, HttpResponse* resp)
             session->setManager(this);
         }
     } else {
-        // 没有Cookie，创建新会话
+        // 没有 Cookie，创建新会话
         std::string sessionId = generateSessionId();
         session = std::make_shared<Session>(sessionId, this);
         // 将新会话ID设置到响应Cookie中（如果resp不为null）

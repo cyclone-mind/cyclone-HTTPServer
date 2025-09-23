@@ -32,6 +32,10 @@
             transform: translateY(-2px);
             background-color: #f3f4f6;
         }
+        .option-card.selected {
+            background-color: #e0e7ff;
+            border-color: #8b5cf6;
+        }
         .option-card.correct {
             background-color: #d1fae5;
             border-color: #10b981;
@@ -78,14 +82,9 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <a href="#" class="border-purple-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" id="nav-home">首页</a>
-                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" id="nav-leaderboard">排行榜</a>
-                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" id="nav-profile">个人资料</a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <button class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
-                        <i data-feather="bell"></i>
-                    </button>
                     <div class="ml-3 relative">
                         <div>
                             <button class="flex text-sm rounded-full focus:outline-none" id="user-menu">
@@ -123,145 +122,11 @@
                 </div>
                 <div class="relative" data-aos="fade-left">
                     <img src="http://static.photos/technology/640x360/1" alt="Meme quiz illustration" class="rounded-lg shadow-xl">
-                    <div class="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-4">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <img class="h-10 w-10 rounded-full" src="http://static.photos/people/200x200/2" alt="">
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">@memelord69</p>
-                                <p class="text-sm text-purple-600">Top 1% Player</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Categories Section -->
-    <div class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl" data-aos="fade-up">
-                    选择梗分类
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto" data-aos="fade-up" data-aos-delay="100">
-                    测试你的不同风格的梗的水平 或无所畏惧，来就有(接受混合挑战)
-                </p>
-            </div>
-            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
-                                <i data-feather="cpu" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">游戏</h3>
-                                <p class="mt-1 text-sm text-gray-500">从瓦到LPL</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-pink-500 rounded-md p-3">
-                                <i data-feather="video" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">社交媒体</h3>
-                                <p class="mt-1 text-sm text-gray-500">流行趋势 & 挑战</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="400">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
-                                <i data-feather="tv" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">影视 & 综艺</h3>
-                                <p class="mt-1 text-sm text-gray-500">标志性场景 & 引用语</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="500">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
-                                <i data-feather="mic" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">直播</h3>
-                                <p class="mt-1 text-sm text-gray-500">抖音 & 虎牙</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="600">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
-                                <i data-feather="globe" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">全球</h3>
-                                <p class="mt-1 text-sm text-gray-500">世界范围广泛使用</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-card bg-white overflow-hidden shadow rounded-lg" data-aos="fade-up" data-aos-delay="700">
-                    <div class="px-4 py-5 sm:p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-red-500 rounded-md p-3">
-                                <i data-feather="shuffle" class="text-white"></i>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">随机</h3>
-                                <p class="mt-1 text-sm text-gray-500">所有条目总和</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700">
-                                开始测验 ( 10 条)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Quiz Section (Hidden by default) -->
     <div class="hidden py-12 bg-gray-50" id="quiz-section">
@@ -271,7 +136,7 @@
                     <!-- Progress Bar -->
                     <div class="mb-6">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm font-medium text-gray-700">问题 <span id="current-question">1</span>/<span id="total-questions">10</span></span>
+                            <span class="text-sm font-medium text-gray-700">问题 <span id="current-question">1</span>/5</span>
                             <span class="text-sm font-medium text-purple-600">分数: <span id="current-score">0</span></span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5">
@@ -282,7 +147,7 @@
                     <!-- Question -->
                     <div class="mb-8">
                         <h3 class="text-xl font-medium text-gray-900 mb-4" id="question-text">Which popular Twitch streamer is known for the "PogChamp" emote?</h3>
-                        <div class="grid grid-cols-1 gap-4">
+                        <div class="grid grid-cols-1 gap-4" id="options-container">
                             <div class="option-card border border-gray-200 rounded-lg p-4 cursor-pointer">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-3">
@@ -307,24 +172,18 @@
                                     <p class="text-gray-700">xQc</p>
                                 </div>
                             </div>
-                            <div class="option-card border border-gray-200 rounded-lg p-4 cursor-pointer">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-3">
-                                        <span class="text-xs font-medium">D</span>
-                                    </div>
-                                    <p class="text-gray-700">Gootecks</p>
-                                </div>
-                            </div>
+                        </div>
+                        <!-- Explanation -->
+                        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg hidden" id="explanation-container">
+                            <h4 class="text-lg font-medium text-blue-900 mb-2">解释</h4>
+                            <p class="text-blue-800" id="explanation-text">这是一个梗题目。</p>
                         </div>
                     </div>
                     
                     <!-- Navigation -->
-                    <div class="flex justify-between">
-                        <button class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                            <i data-feather="chevron-left" class="mr-2"></i> 上一页
-                        </button>
-                        <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700">
-                            下一页 <i data-feather="chevron-right" class="ml-2"></i>
+                    <div class="flex justify-center">
+                        <button id="confirm-answer" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 disabled">
+                            确定答案
                         </button>
                     </div>
                 </div>
@@ -425,31 +284,6 @@
                 </p>
             </div>
             
-            <div class="mb-8" data-aos="fade-up">
-                <div class="sm:hidden">
-                    <label for="tabs" class="sr-only">Select a tab</label>
-                    <select id="tabs" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
-                        <option selected>所有分类</option>
-                        <option>游戏</option>
-                        <option></option>
-                        <option>影视 & 综艺</option>
-                        <option>主播</option>
-                        <option>全球</option>
-                    </select>
-                </div>
-                <div class="hidden sm:block">
-                    <div class="border-b border-gray-200">
-                        <nav class="-mb-px flex space-x-8">
-                            <a href="#" class="border-purple-500 text-purple-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">所有分类</a>
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">游戏</a>
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">抖音</a>
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">影视 & 综艺</a>
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">主播</a>
-                            <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">全球</a>
-                        </nav>
-                    </div>
-                </div>
-            </div>
             
             <div class="bg-white shadow overflow-hidden sm:rounded-lg" data-aos="fade-up">
                 <ul class="divide-y divide-gray-200">
@@ -618,8 +452,8 @@
     <!-- Profile Section -->
     <div class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-3 lg:gap-8">
-                <div class="lg:col-span-1" data-aos="fade-right">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white shadow rounded-lg overflow-hidden">
                         <div class="px-4 py-5 sm:px-6">
                             <div class="flex items-center">
@@ -660,8 +494,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="bg-white shadow rounded-lg overflow-hidden mt-8">
+    
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
                         <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900">你的称号</h3>
                         </div>
@@ -701,154 +535,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="mt-8 lg:mt-0 lg:col-span-2" data-aos="fade-left">
-                    <div class="bg-white shadow rounded-lg overflow-hidden">
-                        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900">你的测试历史</h3>
-                        </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <div class="overflow-x-auto">
-                                <table id="user-history-table" class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">日期</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">分类</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">分数</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">正确</th>
-                                            <th scope="col" class="relative px-6 py-3">
-                                                <span class="sr-only">查看</span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Today, 15:42</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">游戏</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">85/100</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">8/10</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-purple-600 hover:text-purple-900">详情</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Yesterday, 19:15</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">抖音</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">65/100</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6/10</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-purple-600 hover:text-purple-900">详情</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 days ago</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">主播</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">75/100</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">7/10</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-purple-600 hover:text-purple-900">详情</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 week ago</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">随机混合</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">120/200</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12/20</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-purple-600 hover:text-purple-900">详情</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 weeks ago</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">影视 & 综艺</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">55/100</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">5/10</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-purple-600 hover:text-purple-900">详情</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="mt-4 flex justify-between items-center">
-                                <div>
-                                    <p class="text-sm text-gray-700">
-                                        显示 <span class="font-medium">1</span> 到 <span class="font-medium">5</span> 共 <span class="font-medium">12</span> 条结果
-                                    </p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                        <i data-feather="chevron-left" class="h-4 w-4"></i>
-                                    </button>
-                                    <button class="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                        <i data-feather="chevron-right" class="h-4 w-4"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white shadow rounded-lg overflow-hidden mt-8">
-                        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900">表现概览</h3>
-                        </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <div class="h-64">
-                                <!-- Chart placeholder - would be replaced with actual chart in implementation -->
-                                <div class="flex items-center justify-center h-full bg-gray-50 rounded-lg border border-gray-200">
-                                    <p class="text-gray-500">表现图表将显示在这里</p>
-                                </div>
-                            </div>
-                            <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
-                                <div class="bg-white overflow-hidden shadow rounded-lg">
-                                    <div class="px-4 py-5 sm:p-6">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
-                                                <i data-feather="trending-up" class="text-white"></i>
-                                            </div>
-                                            <div class="ml-5 w-0 flex-1">
-                                                <dt class="text-sm font-medium text-gray-500 truncate">最佳分类</dt>
-                                                <dd class="flex items-baseline">
-                                                    <div id="best-category" class="text-2xl font-semibold text-gray-900">游戏</div>
-                                                </dd>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white overflow-hidden shadow rounded-lg">
-                                    <div class="px-4 py-5 sm:p-6">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
-                                                <i data-feather="trending-down" class="text-white"></i>
-                                            </div>
-                                            <div class="ml-5 w-0 flex-1">
-                                                <dt class="text-sm font-medium text-gray-500 truncate">最差分类</dt>
-                                                <dd class="flex items-baseline">
-                                                    <div id="worst-category" class="text-2xl font-semibold text-gray-900">影视 & 综艺</div>
-                                                </dd>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white overflow-hidden shadow rounded-lg">
-                                    <div class="px-4 py-5 sm:p-6">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
-                                                <i data-feather="bar-chart-2" class="text-white"></i>
-                                            </div>
-                                            <div class="ml-5 w-0 flex-1">
-                                                <dt class="text-sm font-medium text-gray-500 truncate">平均分数</dt>
-                                                <dd class="flex items-baseline">
-                                                    <div id="average-score" class="text-2xl font-semibold text-gray-900">72.5%</div>
-                                                </dd>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -944,6 +631,8 @@
         let currentUser = null;
         let isLoggedIn = false;
         let isRegisterMode = false;
+        let isQuizActive = false;
+        let currentQuestionIndex = 0;
 
         // 模态框控制函数
         function showLoginModal(register = false) {
@@ -1033,6 +722,9 @@
                 currentUser = data.user || { user_id: userId };
                 updateUIForUser();
                 showToast('登录成功！');
+                // 加载用户资料和历史
+                await loadAndRenderUserProfile();
+                await loadAndRenderUserHistory();
                 return data;
             } catch (error) {
                 showToast('登录失败: ' + error.message, 'error');
@@ -1091,7 +783,7 @@
         }
 
         // 测试相关函数
-        async function loadQuestions(category = '', count = 10) {
+        async function loadQuestions(category = '', count = 5) {
             if (!isLoggedIn) {
                 showToast('请先登录', 'error');
                 return;
@@ -1104,6 +796,7 @@
 
                 const data = await apiRequest(`/api/test/questions?${params}`);
                 currentQuestions = data.data.questions || [];
+
                 currentCategory = category;
                 currentAnswers = [];
                 return currentQuestions;
@@ -1119,31 +812,25 @@
                 return;
             }
 
-            try {
-                const data = await apiRequest('/api/test/submit', {
-                    method: 'POST',
-                    body: JSON.stringify({ answers })
-                });
-                return data.data;
-            } catch (error) {
-                showToast('提交测试失败: ' + error.message, 'error');
-                throw error;
-            }
+            const data = await apiRequest('/api/test/submit', {
+                method: 'POST',
+                body: JSON.stringify({ answers })
+            });
+            return data.data;
         }
 
         // 排行榜相关函数
-        async function loadLeaderboard(category = '', page = 1, limit = 20) {
+        async function loadLeaderboard(page = 1, limit = 10) {
             try {
                 const params = new URLSearchParams();
                 params.append('page', page);
                 params.append('limit', limit);
 
-                const endpoint = category ? `/leaderboard/category/${category}` : '/leaderboard/total';
-                const data = await apiRequest(`${endpoint}?${params}`);
-                return data.data || { rankings: [], total: 0, page: 1, limit: 20 };
+                const data = await apiRequest(`/api/leaderboard/total?${params}`);
+                return data.data || { rankings: [], total: 0, page: 1, limit: 10 };
             } catch (error) {
                 console.error('加载排行榜失败:', error);
-                return { rankings: [], total: 0, page: 1, limit: 20 };
+                return { rankings: [], total: 0, page: 1, limit: 10 };
             }
         }
 
@@ -1259,7 +946,13 @@
 
         function renderQuestions(questions) {
             const questionContainer = document.getElementById('question-text');
-            const optionsContainer = document.querySelector('.grid.grid-cols-1.gap-4');
+            const optionsContainer = document.getElementById('options-container');
+            const explanationContainer = document.getElementById('explanation-container');
+
+            if (!questionContainer || !optionsContainer) {
+                console.error('测验界面元素未找到');
+                return;
+            }
 
             if (!questions || questions.length === 0) {
                 questionContainer.textContent = '没有找到题目';
@@ -1267,12 +960,26 @@
                 return;
             }
 
-            // 显示第一题（简化版，只显示一道题）
-            const currentQuestion = questions[0];
+            const currentQuestion = questions[currentQuestionIndex];
             questionContainer.textContent = currentQuestion.question_text;
 
+            // 更新问题计数和进度
+            const currentQuestionEl = document.getElementById('current-question');
+            const progressBar = document.getElementById('progress-bar');
+            const currentScoreEl = document.getElementById('current-score');
+
+            if (currentQuestionEl) currentQuestionEl.textContent = currentQuestionIndex + 1;
+            if (progressBar) {
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            if (currentScoreEl) currentScoreEl.textContent = currentAnswers.length * 10;
+
+            // 隐藏解释
+            if (explanationContainer) explanationContainer.classList.add('hidden');
+
             // 渲染选项
-            const options = ['A', 'B', 'C', 'D'];
+            const options = ['A', 'B', 'C'];
             optionsContainer.innerHTML = options.map(option => `
                 <div class="option-card border border-gray-200 rounded-lg p-4 cursor-pointer" data-option="${option}">
                     <div class="flex items-center">
@@ -1284,14 +991,20 @@
                 </div>
             `).join('');
 
+            // 重置选择
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            const confirmButton = document.getElementById('confirm-answer');
+            if (confirmButton) confirmButton.disabled = true;
+
             // 绑定选项点击事件
             document.querySelectorAll('.option-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const selectedOption = this.dataset.option;
-                    currentAnswers = [{ question_id: currentQuestion.id, answer: selectedOption }];
                     // 视觉反馈
                     document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
+                    // 启用确定按钮
+                    if (confirmButton) confirmButton.disabled = false;
                 });
             });
         }
@@ -1299,21 +1012,22 @@
         function renderResults(results) {
             if (!results) return;
 
-            document.getElementById('current-score').textContent = results.score || 0;
-            document.getElementById('results-score').textContent = `${results.score || 0}/${(results.total_questions || 0) * 10}`;
+            const totalScore = (results.correct_answers || 0) * 10;
+            document.getElementById('current-score').textContent = totalScore;
+            document.getElementById('results-score').textContent = `${totalScore}/${(results.total_questions || 0) * 10}`;
             document.getElementById('correct-count').textContent = results.correct_answers || 0;
             document.getElementById('wrong-count').textContent = (results.total_questions || 0) - (results.correct_answers || 0);
             document.getElementById('skipped-count').textContent = 0;
 
             // 更新进度条
-            const percentage = results.total_questions ? ((results.score || 0) / (results.total_questions * 10)) * 100 : 0;
+            const percentage = results.total_questions ? ((results.correct_answers || 0) / results.total_questions) * 100 : 0;
             document.getElementById('results-progress').style.width = `${percentage}%`;
 
             // 显示称号
             document.getElementById('user-title').textContent = results.title || '新手';
         }
 
-        function renderLeaderboard(data, category = '') {
+        function renderLeaderboard(data) {
             const leaderboardContainer = document.querySelector('.divide-y.divide-gray-200');
             const rankings = data.rankings || [];
 
@@ -1330,7 +1044,7 @@
                 const isTopThree = ranking.rank <= 3;
                 const bgColor = isTopThree ? 'bg-yellow-100' : 'bg-gray-100';
                 const textColor = isTopThree ? 'text-yellow-800' : 'text-gray-800';
-                const score = category ? (ranking.category_score || 0) : (ranking.total_score || 0);
+                const score = ranking.total_score || 0;
 
                 leaderboardHTML += `
                     <li class="px-6 py-4 ${ranking.rank === 1 ? 'bg-purple-50' : ''}">
@@ -1389,8 +1103,12 @@
             leaderboardContainer.innerHTML = leaderboardHTML;
 
             // 更新分页信息
-            const totalResults = data.total || rankings.length;
-            const showingText = `显示 <span class="font-medium">1</span> 到 <span class="font-medium">${rankings.length}</span> 共 <span class="font-medium">${totalResults}</span> 条结果`;
+            const totalResults = data.total || 1234;
+            const currentPage = data.page || 1;
+            const limit = data.limit || 10;
+            const start = (currentPage - 1) * limit + 1;
+            const end = Math.min(currentPage * limit, totalResults);
+            const showingText = `显示 <span class="font-medium">${start}</span> 到 <span class="font-medium">${end}</span> 共 <span class="font-medium">${totalResults}</span> 条结果`;
             document.querySelector('.text-sm.text-gray-700').innerHTML = showingText;
         }
 
@@ -1409,70 +1127,7 @@
             // 检查登录状态
             checkLoginStatus();
 
-            // 绑定分类按钮事件
-            document.querySelectorAll('.category-card button').forEach(button => {
-                button.addEventListener('click', async function() {
-                    if (!isLoggedIn) {
-                        alert('请先登录');
-                        return;
-                    }
 
-                    const categoryCard = this.closest('.category-card');
-                    const categoryName = categoryCard.querySelector('h3').textContent;
-
-                    // 映射中文分类到英文
-                    const categoryMap = {
-                        '游戏': 'gaming',
-                        '社交媒体': 'social_media',
-                        '影视 & 综艺': 'tv_movies',
-                        '直播': 'streaming',
-                        '全球': 'global',
-                        '随机': ''
-                    };
-
-                    const category = categoryMap[categoryName] || '';
-
-                    try {
-                        await loadQuestions(category);
-                        renderQuestions(currentQuestions);
-                        document.getElementById('quiz-section').classList.remove('hidden');
-                        document.querySelector('.gradient-bg').scrollIntoView({ behavior: 'smooth' });
-                    } catch (error) {
-                        // 错误已在函数内处理
-                    }
-                });
-            });
-
-            // 绑定提交按钮事件
-            const quizSection = document.getElementById('quiz-section');
-            if (quizSection) {
-                const buttons = quizSection.querySelectorAll('button');
-                buttons.forEach(button => {
-                    if (button.textContent.includes('下一页')) {
-                        button.addEventListener('click', async function() {
-                            if (!isLoggedIn) {
-                                alert('请先登录');
-                                return;
-                            }
-
-                            if (currentAnswers.length === 0) {
-                                showToast('请先选择答案', 'error');
-                                return;
-                            }
-
-                            try {
-                                const results = await submitTest(currentAnswers);
-                                renderResults(results);
-                                document.getElementById('quiz-section').classList.add('hidden');
-                                document.getElementById('results-section').classList.remove('hidden');
-                                document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-                            } catch (error) {
-                                // 错误已在函数内处理
-                            }
-                        });
-                    }
-                });
-            }
 
             // 绑定用户菜单点击事件（用于登录/登出）
             document.getElementById('user-menu').addEventListener('click', function() {
@@ -1490,13 +1145,91 @@
                 e.preventDefault();
                 document.querySelector('.gradient-bg').scrollIntoView({ behavior: 'smooth' });
             });
-            document.getElementById('nav-leaderboard').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.py-12.bg-white').scrollIntoView({ behavior: 'smooth' });
-            });
-            document.getElementById('nav-profile').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.py-12.bg-gray-50').scrollIntoView({ behavior: 'smooth' });
+
+            // 绑定英雄界面开始测验按钮事件
+            const heroButton = document.querySelector('.gradient-bg button');
+            if (heroButton) {
+                heroButton.addEventListener('click', async function() {
+                    if (!isLoggedIn) {
+                        showLoginModal(false);
+                        return;
+                    }
+                    if (isQuizActive) {
+                        showToast('请先完成当前测验', 'error');
+                        return;
+                    }
+                    // 直接开始随机测验
+                    try {
+                        await loadQuestions('', 5);
+                        currentQuestionIndex = 0;
+                        currentAnswers = [];
+                        renderQuestions(currentQuestions);
+                        document.getElementById('quiz-section').classList.remove('hidden');
+                        document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('confirm-answer').textContent = '确定答案';
+                        isQuizActive = true;
+                    } catch (error) {
+                        console.error('开始测验失败:', error);
+                        // 错误已在函数内处理
+                    }
+                });
+            }
+
+            // 绑定确定答案按钮事件
+            document.getElementById('confirm-answer').addEventListener('click', async function() {
+                if (this.textContent === '确定答案') {
+                    const selectedCard = document.querySelector('.option-card.selected');
+                    if (!selectedCard) {
+                        showToast('请先选择答案', 'error');
+                        return;
+                    }
+
+                    const selectedOption = selectedCard.dataset.option;
+                    const currentQuestion = currentQuestions[currentQuestionIndex];
+
+                    // 保存答案
+                    currentAnswers.push({ question_id: currentQuestion.id, answer: selectedOption });
+
+                    // 显示解释
+                    const explanation = currentQuestion.explanation || (currentQuestion.meme && currentQuestion.meme.explanation) || '这是一个梗题目。';
+                    document.getElementById('explanation-text').textContent = explanation;
+                    document.getElementById('explanation-container').classList.remove('hidden');
+
+                    // 禁用选项点击
+                    document.querySelectorAll('.option-card').forEach(card => {
+                        card.style.pointerEvents = 'none';
+                        card.style.opacity = '0.6';
+                    });
+
+                    // 更新按钮文本
+                    const isLastQuestion = currentQuestionIndex >= currentQuestions.length - 1;
+                    this.textContent = isLastQuestion ? '完成测验' : '下一题';
+
+                } else if (this.textContent === '下一题') {
+                    currentQuestionIndex++;
+                    renderQuestions(currentQuestions);
+                    this.textContent = '确定答案';
+                    // 重新启用选项点击
+                    document.querySelectorAll('.option-card').forEach(card => {
+                        card.style.pointerEvents = '';
+                        card.style.opacity = '';
+                    });
+
+                } else if (this.textContent === '完成测验') {
+                    // 提交测验
+                    try {
+                        const results = await submitTest(currentAnswers);
+                        renderResults(results);
+                        document.getElementById('quiz-section').classList.add('hidden');
+                        document.getElementById('results-section').classList.remove('hidden');
+                        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+                        isQuizActive = false;
+                        currentQuestionIndex = 0;
+                        currentAnswers = [];
+                    } catch (error) {
+                        // 错误已在函数内处理
+                    }
+                }
             });
 
             // 绑定模态框事件
