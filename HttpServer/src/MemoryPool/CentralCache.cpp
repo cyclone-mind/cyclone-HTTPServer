@@ -41,9 +41,15 @@ void* CentralCache::fetchRange(size_t index)
         return nullptr;
 
     // 自旋锁保护
+    // 通过test_and_set方法来尝试获取锁
+    // 如果锁空闲（locks_[index] 初始为false），则test_and_set会将locks_[index]设置为true并返回false，线程成功获取锁；
+    // 如果锁已被占用（locks_[index]为true），test_and_set返回true，线程进入循环等待。
     while (locks_[index].test_and_set(std::memory_order_acquire))
     {
-        std::this_thread::yield(); // 添加线程让步，避免忙等待，避免过度消耗CPU
+        // 添加线程让步，避免忙等待，避免过度消耗CPU。
+        // 此时线程保持就绪状态。拿到下个时间片可以立即恢复。
+        // 只有寄存器保存，没有完整上下文切换
+        std::this_thread::yield(); 
     }
 
     void* result = nullptr;

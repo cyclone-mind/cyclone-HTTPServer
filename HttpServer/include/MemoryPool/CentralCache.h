@@ -14,7 +14,7 @@ struct SpanTracker {
     std::atomic<void*> spanAddr{nullptr};
     std::atomic<size_t> numPages{0};
     std::atomic<size_t> blockCount{0};
-    std::atomic<size_t> freeCount{0}; // 用于追踪spn中还有多少块是空闲的，如果所有块都空闲，则归还span给PageCache
+    std::atomic<size_t> freeCount{0}; // 用于追踪span中还有多少块是空闲的，如果所有块都空闲，则归还span给PageCache
 };
 
 class CentralCache

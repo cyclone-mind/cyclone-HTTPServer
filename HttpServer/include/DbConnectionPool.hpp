@@ -1,8 +1,8 @@
 /*
  * @Author: shouyu zhousy953933@gmail.com
  * @Date: 2025-09-17 13:14:08
- * @LastEditors: shouyu zhousy953933@gmail.com
- * @LastEditTime: 2025-09-17 13:42:37
+ * @LastEditors: cyclone cyclone@gmail.com
+ * @LastEditTime: 2025-10-07 15:30:23
  * @FilePath: /cyclone-HTTPServer/HttpServer/include/DbConnectionPool.hpp
  * @Description:
  * Copyright (c) 2025 by cyclone, All Rights Reserved.
@@ -42,6 +42,10 @@ public:
      * @throws DbException 当连接池未初始化或连接失败时
      */
     auto getConnection() -> std::shared_ptr<DbConnection>;
+    
+    // 禁止拷贝构造和赋值操作，维护单例模式的完整性
+    DbConnectionPool(const DbConnectionPool&) = delete;
+    auto operator=(const DbConnectionPool&) -> DbConnectionPool& = delete;
 
 private:
     /**
@@ -57,11 +61,6 @@ private:
      * 自动释放所有连接，智能指针保证资源正确清理
      */
     ~DbConnectionPool();
-
-    // 禁止拷贝构造和赋值操作，维护单例模式的完整性
-    DbConnectionPool(const DbConnectionPool&) = delete;
-    auto operator=(const DbConnectionPool&) -> DbConnectionPool& = delete;
-
 
     auto createConnection() -> std::shared_ptr<DbConnection>;
     

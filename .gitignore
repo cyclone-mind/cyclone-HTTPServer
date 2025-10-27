@@ -43,6 +43,8 @@
 .qoder/*
 build/*
 
+.vscode/*
+
 
 WebApps/MemeServer/front/node_modules/*
 WebApps/MemeServer/front/.vscode    
