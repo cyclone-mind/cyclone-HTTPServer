@@ -1,19 +1,28 @@
 #include "../../include/handlers/ChatRegisterHandler.h"
 
 
+/**
+ * ChatRegisterHandler::handle
+ * 处理用户注册请求
+ *
+ * 功能：
+ * 1. 解析注册信息（用户名、密码）
+ * 2. 检查用户名是否已存在
+ * 3. 插入新用户到数据库
+ * 4. 返回注册结果
+ */
 void ChatRegisterHandler::handle(const http::HttpRequest& req, http::HttpResponse* resp)
 {
-    // 解析body(json格式)
+    // 解析 JSON 格式的请求体
     json parsed = json::parse(req.getBody());
     std::string username = parsed["username"];
     std::string password = parsed["password"];
 
-    // 判断用户是否已经存在，如果存在则注册失败
+    // 尝试插入用户，返回用户ID（-1表示失败）
     int userId = insertUser(username, password);
     if (userId != -1)
     {
-        // 注册成功
-        // 包装成功响应
+        // 注册成功，返回成功响应
         json successResp;
         successResp["status"] = "success";
         successResp["message"] = "Register successful";
@@ -28,7 +37,7 @@ void ChatRegisterHandler::handle(const http::HttpRequest& req, http::HttpRespons
     }
     else
     {
-        // 注册失败
+        // 注册失败（用户名已存在），返回409 Conflict
         json failureResp;
         failureResp["status"] = "error";
         failureResp["message"] = "username already exists";
@@ -42,44 +51,28 @@ void ChatRegisterHandler::handle(const http::HttpRequest& req, http::HttpRespons
     }
 }
 
+/**
+ * insertUser
+ * 插入新用户到数据库
+ *
+ * @param username 用户名
+ * @param password 密码
+ * @return 成功返回用户ID，失败返回-1
+ *
+ * ⚠️ 安全警告：此函数使用字符串拼接构造SQL语句，存在SQL注入风险！
+ * 建议改用预编译语句（Prepared Statements）来防止SQL注入攻击
+ */
 int ChatRegisterHandler::insertUser(const std::string& username, const std::string& password)
 {
-    // 判断用户是否存在，如果不存在则插入，如果存在返回-1，否则返回用户id
+
     if (!isUserExist(username))
     {
-        // 用户不存在，插入用户
+        // ⚠️ SQL注入风险：直接拼接用户输入到SQL语句
+        // 应该使用参数化查询或预编译语句
         std::string sql = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "')";
         mysqlUtil_.executeUpdate(sql);
         std::string sql2 = "SELECT id FROM users WHERE username = '" + username + "'";
         auto res = mysqlUtil_.executeQuery(sql2);
-        /*
-        std::string sql2 = "SELECT id, username, is_user, content, ts FROM chat_message ORDER BY ts ASC, id ASC";
-        auto res = mysqlUtil_.executeQuery(sql2);
-        while (res.next()) {
-            long long user_id = 0;
-            std::string username, content;
-            long long ts = 0;
-            int is_user = 1;
-
-            try {
-                user_id = res.getInt64("id");
-                username = res.getString("username");
-                content = res.getString("content");
-                ts = res.getInt64("ts");
-                is_user = res.getInt("is_user");
-                std::cout << "user_id: " << user_id
-                    << ", username: " << username
-                    << ", content: " << content
-                    << ", ts: " << ts
-                    << ", is_user: " << is_user
-                    << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << "Failed to read row: " << e.what() << std::endl;
-                continue; // 如果出现异常，跳过该行
-            }
-        }
-        */
         if (res->next())
         {
             return res->getInt("id");
@@ -88,8 +81,18 @@ int ChatRegisterHandler::insertUser(const std::string& username, const std::stri
     return -1;
 }
 
+/**
+ * isUserExist
+ * 检查用户名是否已经存在
+ *
+ * @param username 要检查的用户名
+ * @return 存在返回true，不存在返回false
+ *
+ * ⚠️ 安全警告：此函数也存在SQL注入风险
+ */
 bool ChatRegisterHandler::isUserExist(const std::string& username)
 {
+    // ⚠️ SQL注入风险：直接拼接用户输入到SQL语句
     std::string sql = "SELECT id FROM users WHERE username = '" + username + "'";
     auto res = mysqlUtil_.executeQuery(sql);
     if (res->next())

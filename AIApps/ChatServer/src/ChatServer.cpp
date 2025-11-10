@@ -48,16 +48,13 @@ void ChatServer::initChatMessage() {
 }
 
 void ChatServer::readDataFromMySQL() {
+    // 从 MySQL 数据库恢复所有用户的聊天历史记录到内存
+    // 这个函数在服务器启动时调用，用于恢复持久化的聊天记录
     
     
-    const char* apiKey = std::getenv("DASHSCOPE_API_KEY");
-    if (!apiKey) {
-        std::cerr << "Error: DASHSCOPE_API_KEY not found in environment!" << std::endl;
-        return;
-    }
 
     // SQL 查询
-    std::string sql = "SELECT id, username, is_user, content, ts FROM chat_message ORDER BY ts ASC, id ASC";
+    std::string sql = "SELECT id, username,session_id, is_user, content, ts FROM chat_message ORDER BY ts ASC, id ASC";
 
     sql::ResultSet* res;
     try {
@@ -70,12 +67,14 @@ void ChatServer::readDataFromMySQL() {
 
     while (res->next()) {
         long long user_id = 0;
+        std::string session_id ;
         std::string username, content;
         long long ts = 0;
         int is_user = 1;
 
         try {
             user_id = res->getInt64("id");
+            session_id = res->getString("session_id");  
             username = res.getString("username");
             content = res.getString("content");
             ts = res->getInt64("ts");
@@ -86,18 +85,25 @@ void ChatServer::readDataFromMySQL() {
             continue; // 跳过异常
         }
 
-        // 找到或创建 AIHelper
+        // 获取或创建该用户的会话映射表
+        auto& userSessions = chatInformation[user_id];
+
+        // 查找或创建该会话的 AIHelper 实例
         std::shared_ptr<AIHelper> helper;
-        auto it = chatInformation.find(user_id);
-        if (it == chatInformation.end()) {
-            helper = std::make_shared<AIHelper>(apiKey);
+        auto itSession = userSessions.find(user_id);
+        if (itSession == userSessions.end()) {
+            // 该会话不存在，创建新的 AIHelper
+            helper = std::make_shared<AIHelper>();
+            userSessions[session_id] = helper;
             chatInformation[user_id] = helper;
+            // 记录该用户的会话ID
+            sessionsIdsMap[user_id].push_back(session_id);
         }
         else {
-            helper = it->second;
+            helper = itSession->second;
         }
 
-        // 恢复消息
+        // 恢复消息到 AIHelper 的历史记录中
         helper->restoreMessage(content, ts);
     }
 
@@ -119,29 +125,33 @@ void ChatServer::start() {
 
 
 void ChatServer::initializeRouter() {
-    // 注册url回调函数
-    // 登录注册首页
+    // === 路由初始化：注册所有 HTTP 路由和对应的处理器 ===
+
+    // 入口页面路由
     httpServer_.Get("/", std::make_shared<ChatEntryHandler>(this));
     httpServer_.Get("/entry", std::make_shared<ChatEntryHandler>(this));
-    // 登录
-    httpServer_.Post("/login", std::make_shared<ChatLoginHandler>(this));
-    // 注册
-    httpServer_.Post("/register", std::make_shared<ChatRegisterHandler>(this));
-    //注销
-    httpServer_.Post("/user/logout", std::make_shared<ChatLogoutHandler>(this));
-    //聊天页面请求
-    httpServer_.Get("/chat", std::make_shared<ChatHandler>(this));
-    //发送消息
-    httpServer_.Post("/chat/send", std::make_shared<ChatSendHandler>(this));
-    //菜单页面
-    httpServer_.Get("/menu", std::make_shared<AIMenuHandler>(this));
-    //上传页面请求
-    httpServer_.Get("/upload", std::make_shared<AIUploadHandler>(this));
-    //上传发送
-    httpServer_.Post("/upload/send", std::make_shared<AIUploadSendHandler>(this));
-    //同步历史数据，第一次登录时将数据返回前端渲染
-    httpServer_.Post("/chat/history", std::make_shared<ChatHistoryHandler>(this));
 
+    // 用户认证相关路由
+    httpServer_.Post("/login", std::make_shared<ChatLoginHandler>(this));
+    httpServer_.Post("/register", std::make_shared<ChatRegisterHandler>(this));
+    httpServer_.Post("/user/logout", std::make_shared<ChatLogoutHandler>(this));
+
+    // 聊天功能路由
+    httpServer_.Get("/chat", std::make_shared<ChatHandler>(this));
+    httpServer_.Post("/chat/send", std::make_shared<ChatSendHandler>(this));           // 发送消息（已有会话）
+    httpServer_.Post("/chat/history", std::make_shared<ChatHistoryHandler>(this));     // 获取历史记录
+
+    // 多会话管理路由
+    httpServer_.Post("/chat/send-new-session", std::make_shared<ChatCreateAndSendHandler>(this));  // 新建会话并发送
+    httpServer_.Get("/chat/sessions", std::make_shared<ChatSessionsHandler>(this));                // 获取所有会话列表
+
+    // 语音功能路由
+    httpServer_.Post("/chat/tts", std::make_shared<ChatSpeechHandler>(this));
+
+    // AI 菜单和文件上传路由
+    httpServer_.Get("/menu", std::make_shared<AIMenuHandler>(this));
+    httpServer_.Get("/upload", std::make_shared<AIUploadHandler>(this));
+    httpServer_.Post("/upload/send", std::make_shared<AIUploadSendHandler>(this));
 
 }
 
